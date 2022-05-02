@@ -30,7 +30,7 @@ import TV.Data.Description as Description
 import TV.Data.StartTime (StartTime)
 import TV.Data.StartTime as StartTime
 
--- | Type representing the transmission status of a TV show
+-- | Sum type representing the transmission status of a TV show.
 data Status
   = Live
   | Repeat
@@ -73,41 +73,42 @@ date (TVShow { startTime }) = StartTime.toDateString startTime
 decodeTVShows :: Json -> Either JsonDecodeError TVShows
 decodeTVShows = decodeJson >=> (_ .: "results") >=> traverse decodeJson
 
--- | Returns the description of a `TVShow` as a plain `String`
+-- | Return the description of a `TVShow` as a plain `String`.
 descriptionString :: TVShow -> String
 descriptionString (TVShow { description }) = Description.toString description
 
--- | Returns `true` if the given `TVShow` has a description
+-- | Return `true` if the given `TVShow` has a description.
 hasDescription :: TVShow -> Boolean
 hasDescription (TVShow { description }) = Description.hasText description
 
--- | Returns `true` if the given `TVShow` is a live transmission
+-- | Return `true` if the given `TVShow` is a live transmission.
 isLive :: TVShow -> Boolean
 isLive (TVShow { live }) = live
 
--- | Returns `true` if the given `TVShow` is a repeat transmission
+-- | Return `true` if the given `TVShow` is a repeat transmission.
 isRepeat :: TVShow -> Boolean
 isRepeat (TVShow { description }) = Description.isRepeat description
 
 scheduleDate :: TVShows -> String
 scheduleDate = date <<< NEA.head
 
--- | Returns the start time of a `TVShow` as a `String`
+-- | Return the start time of a `TVShow` as a `String`.
 startTimeString :: TVShow -> String
 startTimeString (TVShow { startTime }) = StartTime.toTimeString startTime
 
--- | Returns the derived transmission `Status` of the given `TVShow`
+-- | Return the derived transmission `Status` of the given `TVShow`.
 status :: TVShow -> Status
 status =
-  flap [ isLive, isRepeat ] >>> case _ of
-    [ true, _ ] -> Live
-    [ false, true ] -> Repeat
-    _ -> Standard
+  flap [ isLive, isRepeat ]
+    >>> case _ of
+      [ true, _ ] -> Live
+      [ false, true ] -> Repeat
+      _ -> Standard
 
--- | Returns the timestamp of the given `TVShow`
+-- | Return the timestamp of the given `TVShow`.
 timestamp :: TVShow -> String
 timestamp (TVShow { startTime }) = StartTime.toTimestamp startTime
 
--- | Returns the title of the given `TVShow` as a plain `String`
+-- | Return the title of the given `TVShow` as a plain `String`.
 titleString :: TVShow -> String
 titleString (TVShow { title }) = NES.toString title
