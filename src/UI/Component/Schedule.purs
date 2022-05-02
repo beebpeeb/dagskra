@@ -16,7 +16,7 @@ render state =
   HTML.section [ css "container" ]
     [ case state.response of
         Success shows -> renderSchedule shows
-        Loading -> HTML.div [ css "spinner-border text-muted " ] [ empty ]
+        Loading -> HTML.div [ css "spinner-border text-muted " ] [ ]
         _ -> empty
     ]
   where
