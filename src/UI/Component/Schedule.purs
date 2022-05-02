@@ -22,14 +22,15 @@ render state =
   where
   renderSchedule = HTML.html_ <<< map renderTVShow <<< NEA.toArray <<< NEA.sort
 
-  renderStatusBadge = case _ of
-    Standard -> empty
-    Live ->
-      HTML.p [ css "badge bg-danger" ]
-        [ HTML.text "bein útsending" ]
-    Repeat ->
-      HTML.p [ css "badge bg-success" ]
-        [ HTML.text "endurtekinn" ]
+  renderStatusBadge =
+    case _ of
+      Standard -> empty
+      Live ->
+        HTML.p [ css "badge bg-danger" ]
+          [ HTML.text "bein útsending" ]
+      Repeat ->
+        HTML.p [ css "badge bg-success" ]
+          [ HTML.text "endurtekinn" ]
 
   renderTVShow t =
     HTML.div [ css "row mb-3" ]
