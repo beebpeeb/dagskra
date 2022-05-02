@@ -20,7 +20,8 @@ render state =
         _ -> empty
     ]
   where
-  renderSchedule = HTML.html_ <<< map renderTVShow <<< NEA.toArray <<< NEA.sort
+  renderSchedule =
+    HTML.html_ <<< map renderTVShow <<< NEA.toArray <<< NEA.sort
 
   renderStatusBadge =
     case _ of

@@ -12,9 +12,8 @@ import Network.RemoteData (RemoteData)
 
 import TV.Data.TVShow (TVShows, decodeTVShows)
 
-type APIError = String
-
-type APIResponse = RemoteData APIError TVShows
+type APIResponse =
+  RemoteData String TVShows
 
 fetchTVShows :: Aff APIResponse
 fetchTVShows = do
