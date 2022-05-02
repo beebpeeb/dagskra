@@ -16,8 +16,7 @@ import Data.Either (Either)
 import Data.Formatter.DateTime (Formatter, FormatterCommand(..), format, unformat)
 import Data.List (fromFoldable, singleton)
 
-newtype StartTime
-  = StartTime DateTime
+newtype StartTime = StartTime DateTime
 
 derive instance eqStartTime :: Eq StartTime
 
@@ -27,7 +26,7 @@ instance decodeJsonStartTime :: DecodeJson StartTime where
   decodeJson =
     decodeJson
       >=> fromString
-      >>> lmap (Json.fromString >>> UnexpectedValue)
+        >>> lmap (Json.fromString >>> UnexpectedValue)
 
 instance showStartTime :: Show StartTime where
   show (StartTime dt) = "(StartTime " <> show dt <> ")"
