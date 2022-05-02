@@ -35,11 +35,11 @@ render state =
   renderTVShow t =
     HTML.div [ css "row mb-3" ]
       [ HTML.div [ css "col-2" ]
-          [ HTML.h3 [ css "text-info" ]
+          [ HTML.h4 [ css "text-info" ]
               [ HTML.text $ TVShow.startTimeString t ]
           ]
       , HTML.div [ css "col-10" ]
-          [ HTML.h3 [ css "text-primary" ]
+          [ HTML.h4 [ css "text-primary" ]
               [ HTML.text $ TVShow.titleString t ]
           , renderWhen (TVShow.hasDescription t) \_ ->
               HTML.p [ css "text-muted" ]
