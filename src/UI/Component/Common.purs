@@ -12,7 +12,7 @@ import Network.RemoteData as RD
 
 import TV.API (APIResponse)
 
--- | Sum type representing the possible actions the component can perform.
+-- | Sum type representing the possible actions the application component can perform.
 data Action = FetchSchedule
 
 -- | Type synonym representing the application component's state record.
