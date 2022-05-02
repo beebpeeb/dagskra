@@ -11,11 +11,11 @@ import TV.Data.TVShow (decodeTVShows)
 
 foreign import response :: Json
 
--- | Tests decoding of API response data
+-- | Tests decoding of API response data.
 spec :: Spec Unit
 spec =
   describe "TVShows" do
-    it "can be decoded successfully" do
-      isRight decoded `shouldEqual` true
+    it "can be decoded successfully"
+      $ isRight decoded `shouldEqual` true
   where
   decoded = decodeTVShows response

@@ -8,7 +8,7 @@ import Test.Spec.Assertions (shouldEqual)
 
 import TV.Data.StartTime (fromString, toDateString, toTimeString, toTimestamp)
 
--- | Tests the properties of functions in `TV.Data.StartTime`
+-- | Tests the properties of functions in `TV.Data.StartTime`.
 spec :: Spec Unit
 spec =
   describe "StartTime" do

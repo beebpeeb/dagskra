@@ -7,7 +7,7 @@ import Test.Spec.Assertions (shouldEqual)
 
 import TV.Data.Description (fromString, isEmpty, isRepeat, toString)
 
--- | Tests the properties of functions in `TV.Data.Description`
+-- | Tests the properties of functions in `TV.Data.Description`.
 spec :: Spec Unit
 spec =
   describe "Description" do
