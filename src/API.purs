@@ -20,5 +20,7 @@ fetchTVShows :: Aff APIResponse
 fetchTVShows = do
   response <- get json "https://apis.is/tv/ruv"
   pure case response of
-    Left error -> throwError (printError error)
-    Right { body } -> either (throwError <<< printJsonDecodeError) pure (decodeTVShows body)
+    Left error ->
+      throwError (printError error)
+    Right { body } ->
+      either (throwError <<< printJsonDecodeError) pure (decodeTVShows body)

@@ -32,18 +32,20 @@ instance decodeJsonDescription :: DecodeJson Description where
   decodeJson = decodeJson >=> fromString >>> pure
 
 instance showDescription :: Show Description where
-  show = case _ of
-    NoDescription -> "NoDescription"
-    Description s -> "(Description " <> show s <> ")"
-    RepeatDescription s -> "(RepeatDescription " <> show s <> ")"
+  show =
+    case _ of
+      NoDescription -> "NoDescription"
+      Description s -> "(Description " <> show s <> ")"
+      RepeatDescription s -> "(RepeatDescription " <> show s <> ")"
 
 -- | Constructs a `Description` from the given `String`.
 fromString :: String -> Description
-fromString = String.trim >>> case _ of
-  "" -> NoDescription
-  s ->
-    if hasSuffix s then RepeatDescription (removeSuffix s)
-    else Description s
+fromString =
+  String.trim >>> case _ of
+    "" -> NoDescription
+    s ->
+      if hasSuffix s then RepeatDescription (removeSuffix s)
+      else Description s
 
 -- Returns `true` if the repeat broadcast regex matches the given string.
 hasSuffix :: String -> Boolean
@@ -55,15 +57,17 @@ hasText = not isEmpty
 
 -- | Returns `true` if the given `Description` has no text.
 isEmpty :: Description -> Boolean
-isEmpty = case _ of
-  NoDescription -> true
-  _ -> false
+isEmpty =
+  case _ of
+    NoDescription -> true
+    _ -> false
 
 -- | Returns `true` if the given `Description` represents a repeat transmission.
 isRepeat :: Description -> Boolean
-isRepeat = case _ of
-  RepeatDescription _ -> true
-  _ -> false
+isRepeat =
+  case _ of
+    RepeatDescription _ -> true
+    _ -> false
 
 -- Regular expression which identifies a repeat broadcast.
 regex :: Maybe Regex
@@ -76,7 +80,8 @@ removeSuffix s = String.trim $ fromMaybe s $ RE.replace <$> regex <@> "$1" <@> s
 
 -- | Converts a `Description` to a plain `String`.
 toString :: Description -> String
-toString = case _ of
-  NoDescription -> mempty
-  Description s -> s
-  RepeatDescription s -> s
+toString =
+  case _ of
+    NoDescription -> mempty
+    Description s -> s
+    RepeatDescription s -> s

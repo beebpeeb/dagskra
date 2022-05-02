@@ -41,8 +41,7 @@ data Status
 -- |
 -- | This type represents only the data needed from the external API.
 -- | Everything else is derived from this data by functions in this module.
-newtype TVShow
-  = TVShow
+newtype TVShow = TVShow
   { description :: Description
   , live :: Boolean
   , startTime :: StartTime
@@ -66,8 +65,7 @@ instance ordTVShow :: Ord TVShow where
 instance showTVShow :: Show TVShow where
   show (TVShow { title }) = "(TVShow " <> show title <> ")"
 
-type TVShows
-  = NonEmptyArray TVShow
+type TVShows = NonEmptyArray TVShow
 
 date :: TVShow -> String
 date (TVShow { startTime }) = StartTime.toDateString startTime
@@ -100,10 +98,11 @@ startTimeString (TVShow { startTime }) = StartTime.toTimeString startTime
 
 -- | Returns the derived transmission `Status` of the given `TVShow`
 status :: TVShow -> Status
-status = flap [ isLive, isRepeat ] >>> case _ of
-  [ true, _ ] -> Live
-  [ false, true ] -> Repeat
-  _ -> Standard
+status =
+  flap [ isLive, isRepeat ] >>> case _ of
+    [ true, _ ] -> Live
+    [ false, true ] -> Repeat
+    _ -> Standard
 
 -- | Returns the timestamp of the given `TVShow`
 timestamp :: TVShow -> String
