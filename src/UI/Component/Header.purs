@@ -31,12 +31,11 @@ render state =
           ]
       ]
 
-  statusEmoji =
-    case _ of
-      NotAsked -> "🥱"
-      Loading -> "🤞"
-      Failure _ -> "😱"
-      Success _ -> "😃"
+  statusEmoji = case _ of
+    NotAsked -> "🥱"
+    Loading -> "🤞"
+    Failure _ -> "😱"
+    Success _ -> "😃"
 
   titleCol { response } =
     HTML.div [ css "col-6" ]

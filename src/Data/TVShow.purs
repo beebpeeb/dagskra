@@ -32,8 +32,8 @@ import TV.Data.StartTime as StartTime
 
 -- | Sum type representing the transmission status of a TV show.
 data Status
-  = Live
-  | Repeat
+  = Live String
+  | Repeat String
   | Standard
 
 -- | Custom type representing the notion of a TV show.
@@ -98,12 +98,10 @@ startTimeString (TVShow { startTime }) = StartTime.toTimeString startTime
 
 -- | Return the derived transmission `Status` of the given `TVShow`.
 status :: TVShow -> Status
-status =
-  flap [ isLive, isRepeat ]
-    >>> case _ of
-      [ true, _ ] -> Live
-      [ false, true ] -> Repeat
-      _ -> Standard
+status = flap [ isLive, isRepeat ] >>> case _ of
+  [ true, _ ] -> Live "bein útsending"
+  [ false, true ] -> Repeat "endurtekinn"
+  _ -> Standard
 
 -- | Return the timestamp of the given `TVShow`.
 timestamp :: TVShow -> String

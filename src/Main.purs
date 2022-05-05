@@ -10,7 +10,6 @@ import TV.UI.Component.Container as Container
 
 -- | Run the main container component.
 main :: Effect Unit
-main =
-  runHalogenAff do
-    body <- awaitBody
-    runUI Container.component unit body
+main = runHalogenAff do
+  body <- awaitBody
+  runUI Container.component unit body

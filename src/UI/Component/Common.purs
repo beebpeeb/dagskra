@@ -7,9 +7,8 @@ import Data.Newtype (wrap)
 import Halogen.HTML (HTML, IProp)
 import Halogen.HTML as HTML
 import Halogen.HTML.Properties (class_)
-import Network.RemoteData (RemoteData)
+import Network.RemoteData (RemoteData(..))
 import Network.RemoteData as RD
-
 import TV.API (APIResponse)
 
 -- | Sum type representing the possible actions the application component can perform.
@@ -29,10 +28,15 @@ css = class_ <<< wrap
 empty :: ∀ w i. HTML w i
 empty = HTML.text mempty
 
--- | Lazily renders `HTML` only if the given `RemoteData`
--- | was constructed with `Success`.
-renderRemoteData :: ∀ e a w i. (a -> HTML w i) -> RemoteData e a -> HTML w i
-renderRemoteData f a = RD.maybe empty f a
+renderSpinner :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
+renderSpinner remoteData f = case remoteData of
+  Success a -> f a
+  Loading -> HTML.div [ css "spinner-border text-muted" ] []
+  _ -> empty
+
+-- | Lazily renders `HTML` only if the given `RemoteData` was constructed with `Success`.
+renderSuccess :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
+renderSuccess a f = RD.maybe empty f a
 
 -- | Lazily renders an `HTML` element only if the given condition is `true`.
 renderWhen :: ∀ w i. Boolean -> (Unit -> HTML w i) -> HTML w i

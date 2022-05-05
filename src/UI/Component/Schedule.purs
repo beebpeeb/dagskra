@@ -2,36 +2,29 @@ module TV.UI.Component.Schedule where
 
 import Prelude
 
-import Data.Array.NonEmpty as NEA
+import Data.Array.NonEmpty (sort, toArray)
 import Halogen (ComponentHTML)
 import Halogen.HTML as HTML
-import Network.RemoteData (RemoteData(..))
 
 import TV.Data.TVShow (Status(..))
 import TV.Data.TVShow as TVShow
-import TV.UI.Component.Common (State, css, empty, renderWhen)
+import TV.UI.Component.Common (State, css, empty, renderSpinner, renderWhen)
 
 render :: ∀ action m. State -> ComponentHTML action () m
 render state =
   HTML.section [ css "container" ]
-    [ case state.response of
-        Success shows -> renderSchedule shows
-        Loading -> HTML.div [ css "spinner-border text-muted " ] []
-        _ -> empty
-    ]
+    [ renderSpinner state.response renderSchedule ]
   where
-  renderSchedule =
-    HTML.html_ <<< map renderTVShow <<< NEA.toArray <<< NEA.sort
+  renderSchedule = HTML.html_ <<< map renderTVShow <<< toArray <<< sort
 
-  renderStatusBadge =
-    case _ of
-      Standard -> empty
-      Live ->
-        HTML.p [ css "badge bg-danger" ]
-          [ HTML.text "bein útsending" ]
-      Repeat ->
-        HTML.p [ css "badge bg-success" ]
-          [ HTML.text "endurtekinn" ]
+  renderStatusBadge = case _ of
+    Live label ->
+      HTML.p [ css "badge bg-danger" ]
+        [ HTML.text label ]
+    Repeat label ->
+      HTML.p [ css "badge bg-success" ]
+        [ HTML.text label ]
+    _ -> empty
 
   renderTVShow t =
     HTML.div [ css "row mb-3" ]

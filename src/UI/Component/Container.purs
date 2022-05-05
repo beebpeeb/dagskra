@@ -30,16 +30,12 @@ component =
     }
   where
   handleAction FetchSchedule = do
-    Halogen.modify_ _ { response = Loading }
     response <- Halogen.liftAff fetchTVShows
     let date = TVShow.scheduleDate <$> RD.toMaybe response
     Halogen.modify_ _ { date = date, response = response }
 
-  initialState _ =
-    { date: Nothing, response: NotAsked }
+  initialState _ = { date: Nothing, response: Loading }
 
-  initialize =
-    Just FetchSchedule
+  initialize = Just FetchSchedule
 
-  render =
-    HTML.html_ <<< flap [ Header.render, Schedule.render ]
+  render = HTML.html_ <<< flap [ Header.render, Schedule.render ]

@@ -2,6 +2,8 @@
 
 PureScript app to accompany the BBC Academy talk "Abandon Hope!".
 
+This app requires Node version 17 or higher.
+
 ---
 
 ## Install
@@ -34,7 +36,7 @@ npm run repl
 
 ### Runtime
 
-PureScript has no runtime, so you will notice that source files start off
+PureScript has **no runtime**, so you will notice that source files start off
 with quite a lot of import statements. Unlike Haskell, the [Prelude][] is not
 automatically imported.
 
