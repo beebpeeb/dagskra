@@ -8,16 +8,16 @@ import Halogen.HTML as HTML
 
 import TV.Data.TVShow (Status(..))
 import TV.Data.TVShow as TVShow
-import TV.UI.Component.Common (State, css, empty, renderSpinner, renderWhen)
+import TV.UI.Component.Common (State, css, empty, success', when')
 
 render :: ∀ action m. State -> ComponentHTML action () m
 render { response } =
   HTML.section [ css "container" ]
-    [ renderSpinner response renderSchedule ]
+    [ success' response schedule ]
   where
-  renderSchedule = HTML.html_ <<< map renderTVShow <<< toArray <<< sort
+  schedule = HTML.html_ <<< map tvShow <<< toArray <<< sort
 
-  renderStatusBadge = case _ of
+  statusBadge = case _ of
     Live label ->
       HTML.p [ css "badge bg-danger" ]
         [ HTML.text label ]
@@ -26,7 +26,7 @@ render { response } =
         [ HTML.text label ]
     _ -> empty
 
-  renderTVShow t =
+  tvShow t =
     HTML.div [ css "row mb-3" ]
       [ HTML.div [ css "col-2" ]
           [ HTML.h4 [ css "text-info" ]
@@ -35,9 +35,9 @@ render { response } =
       , HTML.div [ css "col-10" ]
           [ HTML.h4 [ css "text-primary" ]
               [ HTML.text $ TVShow.titleString t ]
-          , renderWhen (TVShow.hasDescription t) \_ ->
+          , when' (TVShow.hasDescription t) \_ ->
               HTML.p [ css "text-muted" ]
                 [ HTML.text $ TVShow.descriptionString t ]
-          , renderStatusBadge $ TVShow.status t
+          , statusBadge $ TVShow.status t
           ]
       ]
