@@ -13,11 +13,7 @@ render :: ∀ action m. State -> ComponentHTML action () m
 render state =
   HTML.header [ css "my-4" ]
     [ HTML.div [ css "container" ]
-        [ HTML.div [ css "row" ]
-            [ titleCol state
-            , messageCol state
-            ]
-        ]
+        [ HTML.div [ css "row" ] $ [ titleCol, messageCol ] <@> state ]
     ]
   where
   messageCol { date, response } =

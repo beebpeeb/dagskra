@@ -28,6 +28,8 @@ css = class_ <<< wrap
 empty :: ∀ w i. HTML w i
 empty = HTML.text mempty
 
+-- | Render some HTML if the given `RemoteData`` was constructed with `Success`
+-- | otherwise render a spinner.
 renderSpinner :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
 renderSpinner remoteData f = case remoteData of
   Success a -> f a

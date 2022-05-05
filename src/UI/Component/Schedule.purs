@@ -11,9 +11,9 @@ import TV.Data.TVShow as TVShow
 import TV.UI.Component.Common (State, css, empty, renderSpinner, renderWhen)
 
 render :: ∀ action m. State -> ComponentHTML action () m
-render state =
+render { response } =
   HTML.section [ css "container" ]
-    [ renderSpinner state.response renderSchedule ]
+    [ renderSpinner response renderSchedule ]
   where
   renderSchedule = HTML.html_ <<< map renderTVShow <<< toArray <<< sort
 
