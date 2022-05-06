@@ -30,13 +30,13 @@ import TV.Data.Description as Description
 import TV.Data.StartTime (StartTime)
 import TV.Data.StartTime as StartTime
 
--- | Sum type representing the transmission status of a TV show.
+-- | Union type representing the transmission status of a TV show.
 data Status
   = Live String
   | Repeat String
   | Standard
 
--- | Custom type representing the notion of a TV show.
+-- | Custom sum type representing the notion of a TV show.
 -- | A `TVShow` is constructed from a JSON object only.
 -- |
 -- | This type represents only the data needed from the external API.

@@ -33,7 +33,7 @@ empty = HTML.text mempty
 success :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
 success a f = RD.maybe empty f a
 
--- | Construct `HTML`` if the given `RemoteData`` was constructed with `Success`
+-- | Construct `HTML` if the given `RemoteData` was constructed with `Success`
 -- | otherwise render a spinner.
 success' :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
 success' remoteData f = case remoteData of

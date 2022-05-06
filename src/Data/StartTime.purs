@@ -16,6 +16,7 @@ import Data.Either (Either)
 import Data.Formatter.DateTime (Formatter, FormatterCommand(..), format, unformat)
 import Data.List (fromFoldable, singleton)
 
+-- | Custom type representing the start time of a TV show.
 newtype StartTime = StartTime DateTime
 
 derive instance eqStartTime :: Eq StartTime
