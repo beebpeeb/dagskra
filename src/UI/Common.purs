@@ -15,7 +15,7 @@ import TV.API (APIResponse)
 -- | Union type representing the possible actions the application component can perform.
 data Action = FetchSchedule
 
--- | Sum type synonym representing the application component's state record.
+-- | Sum type representing the application component's state record.
 type State =
   { date :: Maybe String
   , response :: APIResponse
