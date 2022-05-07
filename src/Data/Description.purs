@@ -45,8 +45,7 @@ fromString = trim >>> case _ of
     if hasSuffix s then RepeatDescription (strip s)
     else Description s
   where
-    strip s =
-      trim $ fromMaybe s $ RE.replace <$> re <@> "$1" <@> s
+  strip s = trim $ fromMaybe s $ RE.replace <$> re <@> "$1" <@> s
 
 -- Returns `true` if the repeat broadcast regex matches the given string.
 hasSuffix :: String -> Boolean
