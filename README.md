@@ -77,9 +77,11 @@ See an example of an AJAX request (and subsequent JSON decoding) in the
 ### Testing
 
 The test modules in the `test` directory demonstrate some approaches to
-testing. [QuickCheck][] is of interest!
+testing. This application is small enough that we can use [Spec][] tests, but
+[QuickCheck] can often be valuable for larger projects.
 
 
 [halogen]: https://purescript-halogen.github.io/purescript-halogen/
 [prelude]: https://github.com/purescript/purescript-prelude
 [quickcheck]: https://github.com/purescript/purescript-quickcheck
+[spec]: https://purescript-spec.github.io/purescript-spec/
