@@ -60,17 +60,28 @@ in the browser and on NodeJS.
 
 ### Layout
 
----
+The modules in [Data](src/Data/) are where our types are defined, along with
+the functions that operate on these types. It is idiomatic in both PureScript
+and Haskell (and other such languages) to begin a project by carefully
+designing the types which describe your domain.
 
-### Libraries
-
-This application makes use of the [Halogen][] UI library.
+The modules in [UI](src/UI/) are where the [Halogen][] UI rendering functions
+live.
 
 You can see how the application is mounted into the DOM in the
 [`Main.purs`](src/Main.purs) module.
 
+---
+
+### Libraries
+
+This application makes use of the [Halogen][] UI library, entirely written in
+PureScript. Halogen is conceptually similar to React.
+
 See an example of an AJAX request (and subsequent JSON decoding) in the
 [`API.purs`](src/API.purs) module.
+
+JSON decoding is provided by [Argonaut][].
 
 ---
 
@@ -81,6 +92,7 @@ testing. This application is small enough that we can use [Spec][] tests, but
 [QuickCheck] can often be valuable for larger projects.
 
 
+[argonaut]: https://github.com/purescript-contrib/purescript-argonaut
 [halogen]: https://purescript-halogen.github.io/purescript-halogen/
 [prelude]: https://github.com/purescript/purescript-prelude
 [quickcheck]: https://github.com/purescript/purescript-quickcheck

@@ -16,27 +16,27 @@ render state =
         [ HTML.div [ css "row" ] $ [ titleCol, messageCol ] <@> state ]
     ]
   where
-  messageCol { date, response } =
-    HTML.div [ css "col-6" ]
-      [ HTML.p [ css "text-end text-info" ]
-          [ HTML.text $ case response of
-              Loading -> "Hleð..."
-              Failure e -> "Eitthvað fór úrskeiðis! " <> e
-              Success _ -> fromMaybe mempty date
-              _ -> mempty
-          ]
-      ]
+    messageCol { date, response } =
+      HTML.div [ css "col-6" ]
+        [ HTML.p [ css "text-end text-info" ]
+            [ HTML.text $ case response of
+                Loading -> "Hleð..."
+                Failure e -> "Eitthvað fór úrskeiðis! " <> e
+                Success _ -> fromMaybe mempty date
+                _ -> mempty
+            ]
+        ]
 
-  statusEmoji = case _ of
-    NotAsked -> "🥱"
-    Loading -> "🤞"
-    Failure _ -> "😱"
-    Success _ -> "😃"
+    statusEmoji = case _ of
+      NotAsked -> "🥱"
+      Loading -> "🤞"
+      Failure _ -> "😱"
+      Success _ -> "😃"
 
-  titleCol { response } =
-    HTML.div [ css "col-6" ]
-      [ HTML.h1 [ css "display-5" ]
-          [ HTML.text "Dagskrá RÚV" ]
-      , HTML.p [ css "display-5" ]
-          [ HTML.text $ statusEmoji response ]
-      ]
+    titleCol { response } =
+      HTML.div [ css "col-6" ]
+        [ HTML.h1 [ css "display-5" ]
+            [ HTML.text "Dagskrá RÚV" ]
+        , HTML.p [ css "display-5" ]
+            [ HTML.text $ statusEmoji response ]
+        ]
