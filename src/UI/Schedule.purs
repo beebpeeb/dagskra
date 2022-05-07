@@ -8,12 +8,12 @@ import Halogen.HTML as HTML
 
 import TV.Data.TVShow (Status(..))
 import TV.Data.TVShow as TVShow
-import TV.UI.Common (State, css, empty, success', when')
+import TV.UI.Common (State, css, empty, spinner, when')
 
 render :: ∀ action m. State -> ComponentHTML action () m
 render { response } =
   HTML.section [ css "container" ]
-    [ success' response schedule ]
+    [ spinner response schedule ]
   where
   schedule = HTML.html_ <<< map tvShow <<< toArray <<< sort
 

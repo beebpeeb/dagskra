@@ -29,18 +29,18 @@ css = class_ <<< wrap
 empty :: ∀ w i. HTML w i
 empty = HTML.text mempty
 
+-- | Constructs `HTML` if the given `RemoteData` was constructed with `Success`
+-- | otherwise renders a spinner.
+spinner :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
+spinner remoteData f = case remoteData of
+  Success a -> f a
+  Loading -> HTML.div [ css "spinner-border text-muted" ] []
+  _ -> empty
+
 -- | Constructs `HTML` only if the given `RemoteData` was constructed with `Success`
 -- | otherwise render `empty`.
 success :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
 success a f = RD.maybe empty f a
-
--- | Constructs `HTML` if the given `RemoteData` was constructed with `Success`
--- | otherwise render a spinner.
-success' :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
-success' remoteData f = case remoteData of
-  Success a -> f a
-  Loading -> HTML.div [ css "spinner-border text-muted" ] []
-  _ -> empty
 
 -- | Constructs `HTML` only if the given condition is `true`.
 when' :: ∀ w i. Boolean -> (Unit -> HTML w i) -> HTML w i
