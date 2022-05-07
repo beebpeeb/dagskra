@@ -1,4 +1,4 @@
-module TV.UI.Component.Container where
+module TV.UI.Container where
 
 import Prelude
 
@@ -12,9 +12,9 @@ import Network.RemoteData as RD
 
 import TV.API (fetchTVShows)
 import TV.Data.TVShow as TVShow
-import TV.UI.Component.Common (Action(..))
-import TV.UI.Component.Header as Header
-import TV.UI.Component.Schedule as Schedule
+import TV.UI.Common (Action(..))
+import TV.UI.Header as Header
+import TV.UI.Schedule as Schedule
 
 component :: ∀ q i o m. MonadAff m => Component q i o m
 component =

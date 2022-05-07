@@ -1,4 +1,4 @@
-module TV.UI.Component.Schedule where
+module TV.UI.Schedule where
 
 import Prelude
 
@@ -8,7 +8,7 @@ import Halogen.HTML as HTML
 
 import TV.Data.TVShow (Status(..))
 import TV.Data.TVShow as TVShow
-import TV.UI.Component.Common (State, css, empty, success', when')
+import TV.UI.Common (State, css, empty, success', when')
 
 render :: ∀ action m. State -> ComponentHTML action () m
 render { response } =

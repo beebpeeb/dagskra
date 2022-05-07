@@ -51,7 +51,7 @@ dateFormatter =
     , Placeholder "."
     , MonthTwoDigits
     , Placeholder "."
-    , YearTwoDigits
+    , YearFull
     ]
 
 dateTimeFormatter :: Formatter

@@ -1,4 +1,4 @@
-module TV.UI.Component.Header where
+module TV.UI.Header where
 
 import Prelude
 
@@ -7,7 +7,7 @@ import Halogen (ComponentHTML)
 import Halogen.HTML as HTML
 import Network.RemoteData (RemoteData(..))
 
-import TV.UI.Component.Common (State, css)
+import TV.UI.Common (State, css)
 
 render :: ∀ action m. State -> ComponentHTML action () m
 render state =

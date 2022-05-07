@@ -37,7 +37,7 @@ instance showDescription :: Show Description where
     Description s -> "(Description " <> show s <> ")"
     RepeatDescription s -> "(RepeatDescription " <> show s <> ")"
 
--- | Construct a `Description` from the given `String`.
+-- | Constructs a `Description` from the given `String`.
 fromString :: String -> Description
 fromString = trim >>> case _ of
   "" -> NoDescription
@@ -45,21 +45,21 @@ fromString = trim >>> case _ of
     if hasSuffix s then RepeatDescription (removeSuffix s)
     else Description s
 
--- Return `true` if the repeat broadcast regex matches the given string.
+-- Returns `true` if the repeat broadcast regex matches the given string.
 hasSuffix :: String -> Boolean
 hasSuffix s = fromMaybe false $ RE.test <$> re <@> s
 
--- | Return `true` if the given `Description` has text.
+-- | Returns `true` if the given `Description` has text.
 hasText :: Description -> Boolean
 hasText = not isEmpty
 
--- | Return `true` if the given `Description` has no text.
+-- | Returns `true` if the given `Description` has no text.
 isEmpty :: Description -> Boolean
 isEmpty = case _ of
   NoDescription -> true
   _ -> false
 
--- | Return `true` if the given `Description` represents a repeat transmission.
+-- | Returns `true` if the given `Description` represents a repeat transmission.
 isRepeat :: Description -> Boolean
 isRepeat = case _ of
   RepeatDescription _ -> true
@@ -69,11 +69,11 @@ isRepeat = case _ of
 re :: Maybe Regex
 re = hush $ RE.regex """(\W+)e.?\s*$""" RE.multiline
 
--- Remove the redundant repeat suffix from the given string.
+-- Removes the redundant repeat suffix from the given string.
 removeSuffix :: String -> String
 removeSuffix s = trim $ fromMaybe s $ RE.replace <$> re <@> "$1" <@> s
 
--- | Convert a `Description` to a plain `String`.
+-- | Converts a `Description` to a plain `String`.
 toString :: Description -> String
 toString = case _ of
   NoDescription -> mempty

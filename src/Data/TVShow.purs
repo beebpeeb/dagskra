@@ -73,40 +73,40 @@ date (TVShow { startTime }) = StartTime.toDateString startTime
 decodeTVShows :: Json -> Either JsonDecodeError TVShows
 decodeTVShows = decodeJson >=> (_ .: "results") >=> traverse decodeJson
 
--- | Return the description of a `TVShow` as a plain `String`.
+-- | Returns the description of a `TVShow` as a plain `String`.
 descriptionString :: TVShow -> String
 descriptionString (TVShow { description }) = Description.toString description
 
--- | Return `true` if the given `TVShow` has a description.
+-- | Returns `true` if the given `TVShow` has a description.
 hasDescription :: TVShow -> Boolean
 hasDescription (TVShow { description }) = Description.hasText description
 
--- | Return `true` if the given `TVShow` is a live transmission.
+-- | Returns `true` if the given `TVShow` is a live transmission.
 isLive :: TVShow -> Boolean
 isLive (TVShow { live }) = live
 
--- | Return `true` if the given `TVShow` is a repeat transmission.
+-- | Returns `true` if the given `TVShow` is a repeat transmission.
 isRepeat :: TVShow -> Boolean
 isRepeat (TVShow { description }) = Description.isRepeat description
 
 scheduleDate :: TVShows -> String
 scheduleDate = date <<< NEA.head
 
--- | Return the start time of a `TVShow` as a `String`.
+-- | Returns the start time of a `TVShow` as a `String`.
 startTimeString :: TVShow -> String
 startTimeString (TVShow { startTime }) = StartTime.toTimeString startTime
 
--- | Return the derived transmission `Status` of the given `TVShow`.
+-- | Returns the derived transmission `Status` of the given `TVShow`.
 status :: TVShow -> Status
 status = flap [ isLive, isRepeat ] >>> case _ of
   [ true, _ ] -> Live "bein útsending"
   [ false, true ] -> Repeat "endurtekinn"
   _ -> Standard
 
--- | Return the timestamp of the given `TVShow`.
+-- | Returns the timestamp of the given `TVShow`.
 timestamp :: TVShow -> String
 timestamp (TVShow { startTime }) = StartTime.toTimestamp startTime
 
--- | Return the title of the given `TVShow` as a plain `String`.
+-- | Returns the title of the given `TVShow` as a plain `String`.
 titleString :: TVShow -> String
 titleString (TVShow { title }) = NES.toString title

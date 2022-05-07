@@ -6,7 +6,7 @@ import Effect (Effect)
 import Halogen.Aff (awaitBody, runHalogenAff)
 import Halogen.VDom.Driver (runUI)
 
-import TV.UI.Component.Container as Container
+import TV.UI.Container as Container
 
 -- | Run the main container component.
 main :: Effect Unit

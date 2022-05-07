@@ -17,7 +17,7 @@ spec =
     it "cannot be constructed from an incorrect string"
       $ isRight (fromString "2021-01 99:99") `shouldEqual` false
     it "can be converted to a date string"
-      $ (toDateString <$> fromString input) `shouldEqual` pure "01.01.21"
+      $ (toDateString <$> fromString input) `shouldEqual` pure "01.01.2021"
     it "can be converted to a time string"
       $ (toTimeString <$> fromString input) `shouldEqual` pure "09:00"
     it "can be converted to a Unix timestamp"
