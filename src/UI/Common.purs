@@ -37,11 +37,11 @@ spinner remoteData f = case remoteData of
   Loading -> HTML.div [ css "spinner-border text-muted" ] []
   _ -> empty
 
--- | Constructs `HTML` only if the given `RemoteData` was constructed with `Success`
--- | otherwise render `empty`.
+-- | Constructs `HTML` if the given `RemoteData` was constructed with `Success`
+-- | otherwise renders `empty`.
 success :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
 success a f = RD.maybe empty f a
 
--- | Constructs `HTML` only if the given condition is `true`.
+-- | Constructs `HTML` only when the given condition is `true`.
 when' :: ∀ w i. Boolean -> (Unit -> HTML w i) -> HTML w i
 when' cond f = if cond then f unit else empty
