@@ -2,7 +2,7 @@ module TV.UI.Common where
 
 import Prelude
 
-import Data.Maybe (Maybe)
+import Data.Maybe (Maybe, maybe)
 import Data.Newtype (wrap)
 import Halogen.HTML (HTML, IProp)
 import Halogen.HTML as HTML
@@ -29,19 +29,22 @@ css = class_ <<< wrap
 empty :: ∀ w i. HTML w i
 empty = HTML.text mempty
 
--- | Constructs `HTML` if the given `RemoteData` was constructed with `Success`
--- | otherwise renders a spinner.
-spinner :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
-spinner remoteData f = case remoteData of
-  Success a -> f a
-  Loading -> HTML.div [ css "spinner-border text-muted" ] []
-  _ -> empty
+maybeElem :: ∀ w i a. Maybe a -> (a -> HTML w i) -> HTML w i
+maybeElem a f = maybe empty f a
 
--- | Constructs `HTML` if the given `RemoteData` was constructed with `Success`
+-- | Constructs `HTML` when the given condition is `true`.
+whenElem :: ∀ w i. Boolean -> (Unit -> HTML w i) -> HTML w i
+whenElem cond f = if cond then f unit else empty
+
+-- | Constructs `HTML` when the given `RemoteData` was constructed with `Success`
 -- | otherwise renders `empty`.
-success :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
-success a f = RD.maybe empty f a
+whenSuccess :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
+whenSuccess a f = RD.maybe empty f a
 
--- | Constructs `HTML` only when the given condition is `true`.
-when' :: ∀ w i. Boolean -> (Unit -> HTML w i) -> HTML w i
-when' cond f = if cond then f unit else empty
+-- | Constructs `HTML` when the given `RemoteData` was constructed with `Success`
+-- | otherwise renders a spinner.
+withSpinner :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
+withSpinner remoteData f = case remoteData of
+  Success a -> f a
+  Loading -> HTML.div [ css "withSpinner-border text-muted" ] []
+  _ -> empty

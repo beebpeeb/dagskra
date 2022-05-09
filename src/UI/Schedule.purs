@@ -8,12 +8,12 @@ import Halogen.HTML as HTML
 
 import TV.Data.TVShow (Status(..))
 import TV.Data.TVShow as TVShow
-import TV.UI.Common (State, css, empty, spinner, when')
+import TV.UI.Common (State, css, empty, whenElem, withSpinner)
 
 render :: ∀ action m. State -> ComponentHTML action () m
 render { response } =
   HTML.section [ css "container" ]
-    [ spinner response schedule ]
+    [ withSpinner response schedule ]
   where
   schedule = HTML.html_ <<< map tvShow <<< toArray <<< sort
 
@@ -35,7 +35,7 @@ render { response } =
       , HTML.div [ css "col-10" ]
           [ HTML.h4 [ css "text-primary" ]
               [ HTML.text $ TVShow.titleString t ]
-          , when' (TVShow.hasDescription t) \_ ->
+          , whenElem (TVShow.hasDescription t) \_ ->
               HTML.p [ css "text-muted" ]
                 [ HTML.text $ TVShow.descriptionString t ]
           , statusBadge $ TVShow.status t

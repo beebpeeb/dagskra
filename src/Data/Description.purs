@@ -17,7 +17,8 @@ import Data.String.Regex (Regex)
 import Data.String.Regex (regex, replace, test) as RE
 import Data.String.Regex.Flags (multiline) as RE
 
--- | Union type representing the possible description of a TV show.
+-- | Union type representing the possible description of a TV show
+-- | which may additionally identify a repeat transmission.
 -- | Construct a `Description` with `fromString`.
 data Description
   = NoDescription
