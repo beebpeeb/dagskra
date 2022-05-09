@@ -47,5 +47,5 @@ whenSuccess a f = RD.maybe empty f a
 withSpinner :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
 withSpinner remoteData f = case remoteData of
   Success a -> f a
-  Loading -> HTML.div [ css "withSpinner-border text-muted" ] []
+  Loading -> HTML.div [ css "spinner-border text-muted" ] []
   _ -> empty
