@@ -29,6 +29,7 @@ css = class_ <<< wrap
 empty :: ∀ w i. HTML w i
 empty = HTML.text mempty
 
+-- | Constructs `HTML` when the given `Maybe` was constructed with `Just`.
 maybeElem :: ∀ w i a. Maybe a -> (a -> HTML w i) -> HTML w i
 maybeElem a f = maybe empty f a
 
