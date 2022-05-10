@@ -39,12 +39,13 @@ type APIResponse = RemoteData String TVShows
 -- |   ```
 -- |
 -- | Here we are taking advantage of the fact that `RemoteData` has both
--- | `Applicative` and a `MonadThrow` type class instances (via the `pure`
+-- | `Applicative` and `MonadThrow` type class instances (via the `pure`
 -- | and `throwError` functions respectively) to construct a result that has
 -- | been safely "lifted" into the pure, monadic context of `RemoteData`.
 -- |
 -- | This is a good motivating example of how PureScript forces you to always
--- | consider the "unhappy path".
+-- | consider the "unhappy path". There is no way to achieve an AJAX fetch
+-- | and "hope for the best".
 -- |
 -- | The function then returns either `Success TVShows` or `Failure String`.
 -- | The string constructed by `Failure` will be either an HTTP error or a
