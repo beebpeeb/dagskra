@@ -5,8 +5,8 @@ import Prelude
 import Data.Maybe (Maybe(..))
 import Effect.Aff.Class (class MonadAff)
 import Halogen (Component)
-import Halogen as Halogen
-import Halogen.HTML as HTML
+import Halogen as H
+import Halogen.HTML as HH
 import Network.RemoteData (RemoteData(..))
 import Network.RemoteData as RD
 
@@ -18,24 +18,24 @@ import TV.UI.Schedule as Schedule
 
 component :: ∀ q i o m. MonadAff m => Component q i o m
 component =
-  Halogen.mkComponent
+  H.mkComponent
     { initialState
     , render
     , eval:
-        Halogen.mkEval
-          $ Halogen.defaultEval
+        H.mkEval
+          $ H.defaultEval
               { handleAction = handleAction
               , initialize = initialize
               }
     }
   where
   handleAction FetchSchedule = do
-    response <- Halogen.liftAff fetchTVShows
+    response <- H.liftAff fetchTVShows
     let date = TVShow.scheduleDate <$> RD.toMaybe response
-    Halogen.modify_ _ { date = date, response = response }
+    H.modify_ _ { date = date, response = response }
 
   initialState _ = { date: Nothing, response: Loading }
 
   initialize = Just FetchSchedule
 
-  render = HTML.html_ <<< flap [ Header.render, Schedule.render ]
+  render = HH.html_ <<< flap [ Header.render, Schedule.render ]

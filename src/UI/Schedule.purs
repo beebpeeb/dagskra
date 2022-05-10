@@ -4,7 +4,7 @@ import Prelude
 
 import Data.Array.NonEmpty (sort, toArray)
 import Halogen (ComponentHTML)
-import Halogen.HTML as HTML
+import Halogen.HTML as HH
 
 import TV.Data.TVShow (Status(..))
 import TV.Data.TVShow as TVShow
@@ -12,32 +12,32 @@ import TV.UI.Common (State, css, empty, whenElem, withSpinner)
 
 render :: ∀ action m. State -> ComponentHTML action () m
 render { response } =
-  HTML.section [ css "container" ]
+  HH.section [ css "container" ]
     [ withSpinner response schedule ]
   where
-  schedule = HTML.html_ <<< map tvShow <<< toArray <<< sort
+  schedule = HH.html_ <<< map tvShow <<< toArray <<< sort
 
   statusBadge = case _ of
     Live label ->
-      HTML.p [ css "badge bg-danger" ]
-        [ HTML.text label ]
+      HH.p [ css "badge bg-danger" ]
+        [ HH.text label ]
     Repeat label ->
-      HTML.p [ css "badge bg-success" ]
-        [ HTML.text label ]
+      HH.p [ css "badge bg-success" ]
+        [ HH.text label ]
     _ -> empty
 
   tvShow t =
-    HTML.div [ css "row mb-3" ]
-      [ HTML.div [ css "col-2" ]
-          [ HTML.h4 [ css "text-info" ]
-              [ HTML.text $ TVShow.startTimeString t ]
+    HH.div [ css "row mb-3" ]
+      [ HH.div [ css "col-2" ]
+          [ HH.h4 [ css "text-info" ]
+              [ HH.text $ TVShow.startTimeString t ]
           ]
-      , HTML.div [ css "col-10" ]
-          [ HTML.h4 [ css "text-primary" ]
-              [ HTML.text $ TVShow.titleString t ]
+      , HH.div [ css "col-10" ]
+          [ HH.h4 [ css "text-primary" ]
+              [ HH.text $ TVShow.titleString t ]
           , whenElem (TVShow.hasDescription t) \_ ->
-              HTML.p [ css "text-muted" ]
-                [ HTML.text $ TVShow.descriptionString t ]
+              HH.p [ css "text-muted" ]
+                [ HH.text $ TVShow.descriptionString t ]
           , statusBadge $ TVShow.status t
           ]
       ]
