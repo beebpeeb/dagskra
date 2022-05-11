@@ -37,6 +37,5 @@ render state =
     HH.div [ css "col-6" ]
       [ HH.h1 [ css "display-5" ]
           [ HH.text "Dagskrá RÚV" ]
-      , HH.p [ css "display-5" ]
-          [ HH.text $ statusEmoji response ]
+      , HH.h2_ [ HH.text $ statusEmoji response ]
       ]
