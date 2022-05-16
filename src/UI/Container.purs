@@ -29,10 +29,11 @@ component =
               }
     }
   where
-  handleAction FetchSchedule = do
-    response <- H.liftAff fetchTVShows
-    let date = TVShow.scheduleDate <$> RD.toMaybe response
-    H.modify_ _ { date = date, response = response }
+  handleAction = case _ of
+    FetchSchedule -> do
+      response <- H.liftAff fetchTVShows
+      let date = TVShow.scheduleDate <$> RD.toMaybe response
+      H.modify_ _ { date = date, response = response }
 
   initialState _ = { date: Nothing, response: Loading }
 

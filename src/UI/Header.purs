@@ -21,7 +21,7 @@ render state =
       [ HH.p [ css "text-end text-info" ]
           [ HH.text $ case response of
               Loading -> "Hleð..."
-              Failure e -> "Eitthvað fór úrskeiðis! " <> e
+              Failure e -> "Eitthvað fór úrskeiðis: " <> e
               Success _ -> fromMaybe mempty date
               _ -> mempty
           ]
@@ -35,7 +35,7 @@ render state =
 
   titleCol { response } =
     HH.div [ css "col-6" ]
-      [ HH.h1 [ css "display-5" ]
+      [ HH.h1 [ css "display-5 text-uppercase" ]
           [ HH.text "Dagskrá RÚV" ]
       , HH.h2_ [ HH.text $ statusEmoji response ]
       ]

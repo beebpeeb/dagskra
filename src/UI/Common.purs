@@ -6,7 +6,7 @@ import Data.Maybe (Maybe, maybe)
 import Data.Newtype (wrap)
 import Halogen.HTML (HTML, IProp)
 import Halogen.HTML as HH
-import Halogen.HTML.Properties (class_)
+import Halogen.HTML.Properties as HP
 import Network.RemoteData (RemoteData(..))
 import Network.RemoteData as RD
 
@@ -23,7 +23,7 @@ type State =
 
 -- | Constructs a Halogen `IProp` for the given CSS class(es).
 css :: ∀ r i. String -> IProp (class :: String | r) i
-css = class_ <<< wrap
+css = HP.class_ <<< wrap
 
 -- | Constructs an empty `HTML` element.
 empty :: ∀ w i. HTML w i
