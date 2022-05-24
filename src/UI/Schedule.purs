@@ -33,7 +33,7 @@ render { response } =
               [ HH.text $ TVShow.startTimeString t ]
           ]
       , HH.div [ css "col-10" ]
-          [ HH.h4 [ css "text-primary" ]
+          [ HH.h4 [ css "text-primary text-uppercase" ]
               [ HH.text $ TVShow.titleString t ]
           , whenElem (TVShow.hasDescription t) \_ ->
               HH.p [ css "text-muted" ]
