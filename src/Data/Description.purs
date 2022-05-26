@@ -70,7 +70,7 @@ isRepeat = case _ of
 
 -- Regular expression which identifies a repeat broadcast.
 re :: Maybe Regex
-re = hush $ RE.regex """(\W+)e.?\s*$""" RE.multiline
+re = hush $ RE.regex """(\W+)e.$""" RE.multiline
 
 -- | Converts a `Description` to a plain `String`.
 toString :: Description -> String
