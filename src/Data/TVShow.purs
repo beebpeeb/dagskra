@@ -36,7 +36,7 @@ data Status
   | Repeat String
   | Standard
 
--- | Sum type representing the notion of a TV show.
+-- | Sum type representing a TV show listing.
 -- | A `TVShow` is constructed from a JSON object only.
 -- |
 -- | This type represents only the data needed from the external API.
