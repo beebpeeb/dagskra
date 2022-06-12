@@ -12,8 +12,8 @@ spec :: Spec Unit
 spec =
   describe "Description" do
     it "has expected text"
-      $ toString (fromString "abc") `shouldEqual` "abc"
+      $ toString (fromString "abc") `shouldEqual` "abcde."
     it "represents a repeat broadcast"
-      $ isRepeat (fromString "abc. e.") `shouldEqual` true
+      $ isRepeat (fromString "abcde. e.") `shouldEqual` true
     it "is empty"
       $ isEmpty (fromString "  ") `shouldEqual` true
