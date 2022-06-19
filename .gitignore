@@ -1,7 +1,6 @@
 /.*
 !/.editorconfig
 !/.gitignore
-!/.vscode/
 /dist/
 /generated-docs/
 /node_modules/

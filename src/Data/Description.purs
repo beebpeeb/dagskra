@@ -10,7 +10,7 @@ module TV.Data.Description
 import Prelude
 
 import Data.Argonaut (class DecodeJson, decodeJson)
-import Data.Maybe (fromMaybe, isJust)
+import Data.Maybe (Maybe(..))
 import Data.String (Pattern(..), stripSuffix, trim)
 
 -- | Union type representing the possible description of a TV show
@@ -38,15 +38,9 @@ instance showDescription :: Show Description where
 fromString :: String -> Description
 fromString = trim >>> case _ of
   "" -> NoDescription
-  s ->
-    if hasSuffix s then RepeatDescription (strip s)
-    else Description s
-  where
-  strip = trim <<< fromMaybe mempty <<< stripSuffix suffix
-
--- Returns `true` if the given show has the repeat suffix marker.
-hasSuffix :: String -> Boolean
-hasSuffix = isJust <<< stripSuffix suffix
+  s -> case stripSuffix (Pattern " e.") s of
+    Nothing -> Description s
+    Just s' -> RepeatDescription s'
 
 -- | Returns `true` if the given `Description` has text.
 hasText :: Description -> Boolean
@@ -63,9 +57,6 @@ isRepeat :: Description -> Boolean
 isRepeat = case _ of
   RepeatDescription _ -> true
   _ -> false
-
-suffix :: Pattern
-suffix = Pattern " e."
 
 -- | Converts a `Description` into a plain `String`.
 toString :: Description -> String
