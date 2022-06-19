@@ -22,5 +22,5 @@ spec =
       $ (toTimeString <$> fromString input) `shouldEqual` pure "09:00"
     it "can be converted to a Unix timestamp"
       $ (toTimestamp <$> fromString input) `shouldEqual` pure "1609491600"
-    where
-    input = "2021-01-01 09:00:00"
+  where
+  input = "2021-01-01 09:00:00"
