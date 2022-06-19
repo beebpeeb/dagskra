@@ -10,12 +10,8 @@ module TV.Data.Description
 import Prelude
 
 import Data.Argonaut (class DecodeJson, decodeJson)
-import Data.Either (hush)
-import Data.Maybe (Maybe, fromMaybe)
-import Data.String (trim)
-import Data.String.Regex (Regex)
-import Data.String.Regex (regex, replace, test) as RE
-import Data.String.Regex.Flags (multiline) as RE
+import Data.Maybe (fromMaybe, isJust)
+import Data.String (Pattern(..), stripSuffix, trim)
 
 -- | Union type representing the possible description of a TV show
 -- | which may additionally identify a repeat transmission.
@@ -46,11 +42,11 @@ fromString = trim >>> case _ of
     if hasSuffix s then RepeatDescription (strip s)
     else Description s
   where
-  strip s = trim $ fromMaybe s $ RE.replace <$> re <@> "$1" <@> s
+  strip = trim <<< fromMaybe mempty <<< stripSuffix (Pattern " e.")
 
--- Returns `true` if the repeat broadcast regex matches the given string.
+-- Returns `true` if the given show has the repeat suffix marker.
 hasSuffix :: String -> Boolean
-hasSuffix s = fromMaybe false $ RE.test <$> re <@> s
+hasSuffix = isJust <<< stripSuffix (Pattern " e.")
 
 -- | Returns `true` if the given `Description` has text.
 hasText :: Description -> Boolean
@@ -67,10 +63,6 @@ isRepeat :: Description -> Boolean
 isRepeat = case _ of
   RepeatDescription _ -> true
   _ -> false
-
--- Regular expression which identifies a repeat broadcast.
-re :: Maybe Regex
-re = hush $ RE.regex """(\W+)e.$""" RE.multiline
 
 -- | Converts a `Description` to a plain `String`.
 toString :: Description -> String
