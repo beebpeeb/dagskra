@@ -10,7 +10,7 @@
     "test": "spago test"
   },
   "devDependencies": {
-    "parcel": "^2.6.0",
+    "parcel": "^2.6.1",
     "purescript": "^0.15.2",
     "spago": "^0.20.9"
   }

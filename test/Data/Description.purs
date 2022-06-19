@@ -10,10 +10,10 @@ import TV.Data.Description (fromString, isEmpty, isRepeat, toString)
 -- | Tests the properties of functions in `TV.Data.Description`.
 spec :: Spec Unit
 spec =
-  describe "Description" do
-    it "has expected text"
-      $ toString (fromString "abc") `shouldEqual` "abcde."
-    it "represents a repeat broadcast"
-      $ isRepeat (fromString "abcde. e.") `shouldEqual` true
-    it "is empty"
-      $ isEmpty (fromString "  ") `shouldEqual` true
+   describe "Description" do
+     it "has expected text"
+       $ toString (fromString "abcde") `shouldEqual` "abcde"
+     it "represents a repeat broadcast"
+       $ isRepeat (fromString "abcde. e.") `shouldEqual` true
+     it "is empty"
+       $ isEmpty (fromString "  ") `shouldEqual` true

@@ -19,7 +19,7 @@ render state =
   messageCol { date, response } =
     HH.div [ css "col-6" ]
       [ HH.p [ css "text-end text-info" ]
-          [ HH.text $ case response of
+          [ HH.text case response of
               Loading -> "Hleð..."
               Failure e -> "Eitthvað fór úrskeiðis: " <> e
               Success _ -> fromMaybe mempty date
