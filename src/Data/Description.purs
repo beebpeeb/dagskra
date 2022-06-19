@@ -42,11 +42,11 @@ fromString = trim >>> case _ of
     if hasSuffix s then RepeatDescription (strip s)
     else Description s
   where
-  strip = trim <<< fromMaybe mempty <<< stripSuffix (Pattern " e.")
+  strip = trim <<< fromMaybe mempty <<< stripSuffix suffix
 
 -- Returns `true` if the given show has the repeat suffix marker.
 hasSuffix :: String -> Boolean
-hasSuffix = isJust <<< stripSuffix (Pattern " e.")
+hasSuffix = isJust <<< stripSuffix suffix
 
 -- | Returns `true` if the given `Description` has text.
 hasText :: Description -> Boolean
@@ -64,7 +64,10 @@ isRepeat = case _ of
   RepeatDescription _ -> true
   _ -> false
 
--- | Converts a `Description` to a plain `String`.
+suffix :: Pattern
+suffix = Pattern " e."
+
+-- | Converts a `Description` into a plain `String`.
 toString :: Description -> String
 toString = case _ of
   NoDescription -> mempty
