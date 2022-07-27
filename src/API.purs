@@ -10,15 +10,15 @@ import Data.Either (Either(..), either)
 import Effect.Aff (Aff)
 import Network.RemoteData (RemoteData)
 
-import TV.Data.TVShow (TVShows, decodeTVShows)
+import TV.Data.Listing (Listings, decodeListings)
 
-type APIResponse = RemoteData String TVShows
+type APIResponse = RemoteData String Listings
 
-fetchTVShows :: Aff APIResponse
-fetchTVShows = do
+fetchListings :: Aff APIResponse
+fetchListings = do
   response <- get json "https://apis.is/tv/ruv"
   pure case response of
     Left error ->
       throwError (printError error)
     Right { body } ->
-      either (throwError <<< printJsonDecodeError) pure (decodeTVShows body)
+      either (throwError <<< printJsonDecodeError) pure (decodeListings body)

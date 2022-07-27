@@ -10,7 +10,7 @@ module TV.Data.Description
 import Prelude
 
 import Data.Argonaut (class DecodeJson, decodeJson)
-import Data.Maybe (Maybe(..))
+import Data.Maybe (maybe)
 import Data.String (Pattern(..), stripSuffix, trim)
 
 -- | Union type representing the possible description of a TV show
@@ -38,9 +38,7 @@ instance showDescription :: Show Description where
 fromString :: String -> Description
 fromString = trim >>> case _ of
   "" -> NoDescription
-  s -> case stripSuffix (Pattern " e.") s of
-    Nothing -> Description s
-    Just s' -> RepeatDescription s'
+  s -> maybe (Description s) RepeatDescription $ stripSuffix (Pattern " e.") s
 
 -- | Returns `true` if the given `Description` has text.
 hasText :: Description -> Boolean

@@ -1,9 +1,9 @@
-module TV.Data.TVShow
+module TV.Data.Listing
   ( Status(..)
-  , TVShow
-  , TVShows
+  , Listing
+  , Listings
   , date
-  , decodeTVShows
+  , decodeListings
   , descriptionString
   , hasDescription
   , isLive
@@ -41,72 +41,72 @@ data Status
 -- |
 -- | This type represents only the data needed from the external API.
 -- | Everything else is derived from this data by functions in this module.
-newtype TVShow = TVShow
+newtype Listing = Listing
   { description :: Description
   , live :: Boolean
   , startTime :: StartTime
   , title :: NonEmptyString
   }
 
-derive instance eqTVShow :: Eq TVShow
+derive instance eqListing :: Eq Listing
 
-instance decodeJsonTVShow :: DecodeJson TVShow where
+instance decodeJsonListing :: DecodeJson Listing where
   decodeJson json = do
     obj <- decodeJson json
     description <- obj .: "description"
     live <- obj .: "live"
     startTime <- obj .: "startTime"
     title <- obj .: "title"
-    pure $ TVShow { description, live, startTime, title }
+    pure $ Listing { description, live, startTime, title }
 
-instance ordTVShow :: Ord TVShow where
-  compare (TVShow a) (TVShow b) = compare a.startTime b.startTime
+instance ordListing :: Ord Listing where
+  compare (Listing a) (Listing b) = compare a.startTime b.startTime
 
-instance showTVShow :: Show TVShow where
-  show (TVShow { title }) = "(TVShow " <> show title <> ")"
+instance showListing :: Show Listing where
+  show (Listing { title }) = "(Listing " <> show title <> ")"
 
-type TVShows = NonEmptyArray TVShow
+type Listings = NonEmptyArray Listing
 
-date :: TVShow -> String
-date (TVShow { startTime }) = StartTime.toDateString startTime
+date :: Listing -> String
+date (Listing { startTime }) = StartTime.toDateString startTime
 
-decodeTVShows :: Json -> Either JsonDecodeError TVShows
-decodeTVShows = decodeJson >=> (_ .: "results") >=> traverse decodeJson
+decodeListings :: Json -> Either JsonDecodeError Listings
+decodeListings = decodeJson >=> (_ .: "results") >=> traverse decodeJson
 
 -- | Returns the description of a `TVShow` as a plain `String`.
-descriptionString :: TVShow -> String
-descriptionString (TVShow { description }) = Description.toString description
+descriptionString :: Listing -> String
+descriptionString (Listing { description }) = Description.toString description
 
 -- | Returns `true` if the given `TVShow` has a description.
-hasDescription :: TVShow -> Boolean
-hasDescription (TVShow { description }) = Description.hasText description
+hasDescription :: Listing -> Boolean
+hasDescription (Listing { description }) = Description.hasText description
 
 -- | Returns `true` if the given `TVShow` is a live transmission.
-isLive :: TVShow -> Boolean
-isLive (TVShow { live }) = live
+isLive :: Listing -> Boolean
+isLive (Listing { live }) = live
 
 -- | Returns `true` if the given `TVShow` is a repeat transmission.
-isRepeat :: TVShow -> Boolean
-isRepeat (TVShow { description }) = Description.isRepeat description
+isRepeat :: Listing -> Boolean
+isRepeat (Listing { description }) = Description.isRepeat description
 
-scheduleDate :: TVShows -> String
+scheduleDate :: Listings -> String
 scheduleDate = date <<< NEA.head
 
 -- | Returns the start time of a `TVShow` as a `String`.
-startTimeString :: TVShow -> String
-startTimeString (TVShow { startTime }) = StartTime.toTimeString startTime
+startTimeString :: Listing -> String
+startTimeString (Listing { startTime }) = StartTime.toTimeString startTime
 
 -- | Returns the derived transmission `Status` of the given `TVShow`.
-status :: TVShow -> Status
+status :: Listing -> Status
 status = flap [ isLive, isRepeat ] >>> case _ of
   [ true, _ ] -> Live "bein útsending"
   [ false, true ] -> Repeat "endurtekinn"
   _ -> Standard
 
 -- | Returns the timestamp of the given `TVShow`.
-timestamp :: TVShow -> String
-timestamp (TVShow { startTime }) = StartTime.toTimestamp startTime
+timestamp :: Listing -> String
+timestamp (Listing { startTime }) = StartTime.toTimestamp startTime
 
 -- | Returns the title of the given `TVShow` as a plain `String`.
-titleString :: TVShow -> String
-titleString (TVShow { title }) = NES.toString title
+titleString :: Listing -> String
+titleString (Listing { title }) = NES.toString title

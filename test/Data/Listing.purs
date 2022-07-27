@@ -7,15 +7,15 @@ import Data.Either (isRight)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
 
-import TV.Data.TVShow (decodeTVShows)
+import TV.Data.Listing (decodeListings)
 
 foreign import response :: Json
 
 -- | Tests decoding of API response data.
 spec :: Spec Unit
 spec =
-  describe "TVShows" do
+  describe "Listings" do
     it "can be decoded successfully"
       $ isRight decoded `shouldEqual` true
   where
-  decoded = decodeTVShows response
+  decoded = decodeListings response

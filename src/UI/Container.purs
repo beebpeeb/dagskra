@@ -10,8 +10,8 @@ import Halogen.HTML as HH
 import Network.RemoteData (RemoteData(..))
 import Network.RemoteData as RD
 
-import TV.API (fetchTVShows)
-import TV.Data.TVShow as TVShow
+import TV.API (fetchListings)
+import TV.Data.Listing as Listing
 import TV.UI.Common (Action(..))
 import TV.UI.Header as Header
 import TV.UI.Schedule as Schedule
@@ -31,8 +31,8 @@ component =
   where
   handleAction = case _ of
     FetchSchedule -> do
-      response <- H.liftAff fetchTVShows
-      let date = TVShow.scheduleDate <$> RD.toMaybe response
+      response <- H.liftAff fetchListings
+      let date = Listing.scheduleDate <$> RD.toMaybe response
       H.modify_ _ { date = date, response = response }
 
   initialState _ = { date: Nothing, response: Loading }
