@@ -18,12 +18,12 @@ render { response } =
   schedule = HH.html_ <<< map tvShow <<< toArray <<< sort
 
   statusBadge = case _ of
-    Live label ->
+    Live ->
       HH.p [ css "badge bg-danger" ]
-        [ HH.text label ]
-    Repeat label ->
+        [ HH.text "bein útsending" ]
+    Repeat ->
       HH.p [ css "badge bg-success" ]
-        [ HH.text label ]
+        [ HH.text "endurtekinn" ]
     _ -> empty
 
   tvShow t =
