@@ -34,7 +34,7 @@ import TV.Data.StartTime as StartTime
 data Status = Live | Repeat | Standard
 
 -- | Sum type representing a TV show listing.
--- | A `Listing` is constructed from a JSON object only.
+-- | A `Listing` is constructed from a JSON object via `decodeJson` only.
 -- |
 -- | This type represents only the data needed from the external API.
 -- | Everything else is derived from this data by functions in this module.
@@ -70,40 +70,41 @@ date (Listing { startTime }) = StartTime.toDateString startTime
 decodeListings :: Json -> Either JsonDecodeError Listings
 decodeListings = decodeJson >=> (_ .: "results") >=> traverse decodeJson
 
--- | Returns the description of a `TVShow` as a plain `String`.
+-- | Returns the description of a `Listing` as a plain `String`.
 descriptionString :: Listing -> String
 descriptionString (Listing { description }) = Description.toString description
 
--- | Returns `true` if the given `TVShow` has a description.
+-- | Returns `true` if the given `Listing` has a description.
 hasDescription :: Listing -> Boolean
 hasDescription (Listing { description }) = Description.hasText description
 
--- | Returns `true` if the given `TVShow` is a live transmission.
+-- | Returns `true` if the given `Listing` is a live transmission.
 isLive :: Listing -> Boolean
 isLive (Listing { live }) = live
 
--- | Returns `true` if the given `TVShow` is a repeat transmission.
+-- | Returns `true` if the given `Listing` is a repeat transmission.
 isRepeat :: Listing -> Boolean
 isRepeat (Listing { description }) = Description.isRepeat description
 
+-- | Returns the date of the given `Listings`
 scheduleDate :: Listings -> String
 scheduleDate = date <<< NEA.head
 
--- | Returns the start time of a `TVShow` as a `String`.
+-- | Returns the start time of a `Listing` as a `String`.
 startTimeString :: Listing -> String
 startTimeString (Listing { startTime }) = StartTime.toTimeString startTime
 
--- | Returns the derived transmission `Status` of the given `TVShow`.
+-- | Returns the derived transmission `Status` of the given `Listing`.
 status :: Listing -> Status
 status = flap [ isLive, isRepeat ] >>> case _ of
   [ true, _ ] -> Live
   [ false, true ] -> Repeat
   _ -> Standard
 
--- | Returns the timestamp of the given `TVShow`.
+-- | Returns the timestamp of the given `Listing`.
 timestamp :: Listing -> String
 timestamp (Listing { startTime }) = StartTime.toTimestamp startTime
 
--- | Returns the title of the given `TVShow` as a plain `String`.
+-- | Returns the title of the given `Listing` as a plain `String`.
 titleString :: Listing -> String
 titleString (Listing { title }) = NES.toString title
