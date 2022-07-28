@@ -1,7 +1,7 @@
 module TV.Data.Listing
-  ( Status(..)
-  , Listing
+  ( Listing
   , Listings
+  , Status(..)
   , date
   , decodeListings
   , descriptionString
@@ -37,7 +37,7 @@ data Status
   | Standard
 
 -- | Sum type representing a TV show listing.
--- | A `TVShow` is constructed from a JSON object only.
+-- | A `Listing` is constructed from a JSON object only.
 -- |
 -- | This type represents only the data needed from the external API.
 -- | Everything else is derived from this data by functions in this module.

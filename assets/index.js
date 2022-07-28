@@ -1,4 +1,5 @@
 import { main } from "../output/Main";
 
-console.log("Rendering UI...");
+// OpenTelemetry instrumentation goes somewhere here
+
 main();

@@ -9,9 +9,14 @@
     "start": "spago build && parcel --open",
     "test": "spago test"
   },
+  "dependencies": {
+    "@opentelemetry/api": "^1.1.0",
+    "@opentelemetry/instrumentation-xml-http-request": "^0.31.0",
+    "@opentelemetry/sdk-trace-web": "^1.5.0"
+  },
   "devDependencies": {
-    "parcel": "^2.6.1",
-    "purescript": "^0.15.2",
+    "parcel": "^2.6.2",
+    "purescript": "^0.15.4",
     "spago": "^0.20.9"
   }
 }
