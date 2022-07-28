@@ -1,4 +1,4 @@
-module Test.Data.TVShow.Spec (spec) where
+module Test.Data.Listing.Spec (spec) where
 
 import Prelude
 
