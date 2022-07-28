@@ -14,7 +14,7 @@ import Data.Bifunctor (lmap)
 import Data.DateTime (DateTime)
 import Data.Either (Either)
 import Data.Formatter.DateTime (Formatter, FormatterCommand(..), format, unformat)
-import Data.List (fromFoldable, singleton)
+import Data.List (List(..), (:))
 
 -- | Custom type representing the start time of a TV show.
 newtype StartTime = StartTime DateTime
@@ -46,32 +46,30 @@ toTimestamp (StartTime dt) = format timestampFormatter dt
 
 dateFormatter :: Formatter
 dateFormatter =
-  fromFoldable
-    [ DayOfMonthTwoDigits
-    , Placeholder "."
-    , MonthTwoDigits
-    , Placeholder "."
-    , YearFull
-    ]
+  DayOfMonthTwoDigits
+    : Placeholder "."
+    : MonthTwoDigits
+    : Placeholder "."
+    : YearFull
+    : Nil
 
 dateTimeFormatter :: Formatter
 dateTimeFormatter =
-  fromFoldable
-    [ YearFull
-    , Placeholder "-"
-    , MonthTwoDigits
-    , Placeholder "-"
-    , DayOfMonthTwoDigits
-    , Placeholder " "
-    , Hours24
-    , Placeholder ":"
-    , MinutesTwoDigits
-    , Placeholder ":"
-    , SecondsTwoDigits
-    ]
+  YearFull
+    : Placeholder "-"
+    : MonthTwoDigits
+    : Placeholder "-"
+    : DayOfMonthTwoDigits
+    : Placeholder " "
+    : Hours24
+    : Placeholder ":"
+    : MinutesTwoDigits
+    : Placeholder ":"
+    : SecondsTwoDigits
+    : Nil
 
 timeFormatter :: Formatter
-timeFormatter = fromFoldable [ Hours24, Placeholder ":", MinutesTwoDigits ]
+timeFormatter = Hours24 : Placeholder ":" : MinutesTwoDigits : Nil
 
 timestampFormatter :: Formatter
-timestampFormatter = singleton UnixTimestamp
+timestampFormatter = UnixTimestamp : Nil
