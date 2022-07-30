@@ -10,32 +10,20 @@ import Network.RemoteData (RemoteData(..))
 import TV.UI.Common (State, css)
 
 render :: ∀ action m. State -> ComponentHTML action () m
-render state =
+render { date, response } =
   HH.header [ css "my-4" ]
     [ HH.div [ css "container" ]
-        [ HH.div [ css "row" ] $ [ titleCol, infoCol ] <@> state ]
+        [ HH.div [ css "row" ]
+            [ HH.h1 [ css "display-3" ]
+                [ HH.text "Dagskrá RÚV"
+                , HH.span [ css "fs-5 text-info" ]
+                    [ HH.text case response of
+                        Loading -> "Hleð..."
+                        Failure e -> "Eitthvað fór úrskeiðis: " <> e
+                        Success _ -> fromMaybe mempty date
+                        _ -> mempty
+                    ]
+                ]
+            ]
+        ]
     ]
-  where
-  infoCol { date, response } =
-    HH.div [ css "col-6" ]
-      [ HH.p [ css "text-end text-info" ]
-          [ HH.text case response of
-              Loading -> "Hleð..."
-              Failure e -> "Eitthvað fór úrskeiðis: " <> e
-              Success _ -> fromMaybe mempty date
-              _ -> mempty
-          ]
-      ]
-
-  statusEmoji = case _ of
-    NotAsked -> "🥱"
-    Loading -> "🤞"
-    Failure _ -> "😱"
-    Success _ -> "😃"
-
-  titleCol { response } =
-    HH.div [ css "col-6" ]
-      [ HH.h1 [ css "display-5 text-uppercase" ]
-          [ HH.text "Dagskrá RÚV" ]
-      , HH.h2_ [ HH.text $ statusEmoji response ]
-      ]

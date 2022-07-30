@@ -15,7 +15,23 @@ render { response } =
   HH.section [ css "container" ]
     [ withSpinner response schedule ]
   where
-  schedule = HH.html_ <<< map tvShow <<< toArray <<< sort
+  schedule = HH.html_ <<< map listing <<< toArray <<< sort
+
+  listing l =
+    HH.div [ css "row mb-3" ]
+      [ HH.div [ css "col-2" ]
+          [ HH.h4 [ css "text-info" ]
+              [ HH.text $ Listing.startTimeString l ]
+          ]
+      , HH.div [ css "col-10" ]
+          [ HH.h4 [ css "text-primary text-uppercase" ]
+              [ HH.text $ Listing.titleString l ]
+          , whenElem (Listing.hasDescription l) \_ ->
+              HH.p [ css "text-muted" ]
+                [ HH.text $ Listing.descriptionString l ]
+          , statusBadge $ Listing.status l
+          ]
+      ]
 
   statusBadge = case _ of
     Live ->
@@ -25,19 +41,3 @@ render { response } =
       HH.p [ css "badge bg-success" ]
         [ HH.text "endurtekinn" ]
     _ -> empty
-
-  tvShow t =
-    HH.div [ css "row mb-3" ]
-      [ HH.div [ css "col-2" ]
-          [ HH.h4 [ css "text-info" ]
-              [ HH.text $ Listing.startTimeString t ]
-          ]
-      , HH.div [ css "col-10" ]
-          [ HH.h4 [ css "text-primary text-uppercase" ]
-              [ HH.text $ Listing.titleString t ]
-          , whenElem (Listing.hasDescription t) \_ ->
-              HH.p [ css "text-muted" ]
-                [ HH.text $ Listing.descriptionString t ]
-          , statusBadge $ Listing.status t
-          ]
-      ]
