@@ -13,13 +13,13 @@ import Data.Argonaut (class DecodeJson, decodeJson)
 import Data.Maybe (maybe)
 import Data.String (Pattern(..), stripSuffix, trim)
 
--- | Union type representing the possible description of a TV show
+-- | Union type representing the possible description of a listing
 -- | which may additionally identify a repeat transmission.
 -- | Construct a `Description` with `fromString`.
 data Description
-  = NoDescription
+  = None
   | Description String
-  | RepeatDescription String
+  | Repeat String
 
 derive instance eqDescription :: Eq Description
 
@@ -30,15 +30,15 @@ instance decodeJsonDescription :: DecodeJson Description where
 
 instance showDescription :: Show Description where
   show = case _ of
-    NoDescription -> "NoDescription"
+    None -> "None"
     Description s -> "(Description " <> show s <> ")"
-    RepeatDescription s -> "(RepeatDescription " <> show s <> ")"
+    Repeat s -> "(Repeat " <> show s <> ")"
 
 -- | Constructs a `Description` from the given `String`.
 fromString :: String -> Description
 fromString = trim >>> case _ of
-  "" -> NoDescription
-  s -> maybe (Description s) RepeatDescription $ stripSuffix (Pattern " e.") s
+  "" -> None
+  s -> maybe (Description s) Repeat $ trim <$> stripSuffix (Pattern " e.") s
 
 -- | Returns `true` if the given `Description` has text.
 hasText :: Description -> Boolean
@@ -47,18 +47,18 @@ hasText = not isEmpty
 -- | Returns `true` if the given `Description` has no text.
 isEmpty :: Description -> Boolean
 isEmpty = case _ of
-  NoDescription -> true
+  None -> true
   _ -> false
 
 -- | Returns `true` if the given `Description` represents a repeat transmission.
 isRepeat :: Description -> Boolean
 isRepeat = case _ of
-  RepeatDescription _ -> true
+  Repeat _ -> true
   _ -> false
 
 -- | Converts a `Description` into a plain `String`.
 toString :: Description -> String
 toString = case _ of
-  NoDescription -> mempty
+  None -> mempty
   Description s -> s
-  RepeatDescription s -> s
+  Repeat s -> s

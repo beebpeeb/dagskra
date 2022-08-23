@@ -8,25 +8,25 @@ This app requires Node version 17 or higher.
 
 ## Install
 
-```
+```shell
 npm install
 ```
 
 ## Run
 
-```
+```shell
 npm start
 ```
 
 ## Test
 
-```
+```shell
 npm test
 ```
 
 ## REPL
 
-```
+```shell
 npm run repl
 ```
 
