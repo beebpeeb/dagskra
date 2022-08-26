@@ -2,7 +2,7 @@ module TV.UI.Common where
 
 import Prelude
 
-import Data.Maybe (Maybe, maybe)
+import Data.Maybe (Maybe)
 import Data.Newtype (wrap)
 import Halogen.HTML (HTML, IProp)
 import Halogen.HTML as HH
@@ -28,10 +28,6 @@ css = HP.class_ <<< wrap
 -- | Constructs an empty `HTML` element.
 empty :: ∀ w i. HTML w i
 empty = HH.text mempty
-
--- | Constructs `HTML` when the given `Maybe` was constructed with `Just`.
-maybeElem :: ∀ w i a. Maybe a -> (a -> HTML w i) -> HTML w i
-maybeElem a f = maybe empty f a
 
 -- | Constructs `HTML` when the given condition is `true`.
 whenElem :: ∀ w i. Boolean -> (Unit -> HTML w i) -> HTML w i
