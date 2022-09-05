@@ -50,7 +50,7 @@ dateFormatter =
     : Placeholder "."
     : MonthTwoDigits
     : Placeholder "."
-    : YearFull
+    : YearTwoDigits
     : Nil
 
 dateTimeFormatter :: Formatter
