@@ -17,9 +17,9 @@ import Data.String (Pattern(..), stripSuffix, trim)
 -- | which may additionally identify a repeat transmission.
 -- | Construct a `Description` with `fromString`.
 data Description
-  = None
-  | Description String
-  | Repeat String
+  = NoDescription
+  | StandardDescription String
+  | RepeatDescription String
 
 derive instance eqDescription :: Eq Description
 
@@ -30,15 +30,15 @@ instance decodeJsonDescription :: DecodeJson Description where
 
 instance showDescription :: Show Description where
   show = case _ of
-    None -> "None"
-    Description s -> "(Description " <> show s <> ")"
-    Repeat s -> "(Repeat " <> show s <> ")"
+    NoDescription -> "NoDescription"
+    StandardDescription s -> "(StandardDescription " <> show s <> ")"
+    RepeatDescription s -> "(RepeatDescription " <> show s <> ")"
 
 -- | Constructs a `Description` from the given `String`.
 fromString :: String -> Description
 fromString = trim >>> case _ of
-  "" -> None
-  s -> maybe (Description s) Repeat $ trim <$> stripSuffix (Pattern " e.") s
+  "" -> NoDescription
+  s -> maybe (StandardDescription s) RepeatDescription $ trim <$> stripSuffix (Pattern " e.") s
 
 -- | Returns `true` if the given `Description` has text.
 hasText :: Description -> Boolean
@@ -47,18 +47,18 @@ hasText = not isEmpty
 -- | Returns `true` if the given `Description` has no text.
 isEmpty :: Description -> Boolean
 isEmpty = case _ of
-  None -> true
+  NoDescription -> true
   _ -> false
 
 -- | Returns `true` if the given `Description` represents a repeat transmission.
 isRepeat :: Description -> Boolean
 isRepeat = case _ of
-  Repeat _ -> true
+  RepeatDescription _ -> true
   _ -> false
 
 -- | Converts a `Description` into a plain `String`.
 toString :: Description -> String
 toString = case _ of
-  None -> mempty
-  Description s -> s
-  Repeat s -> s
+  NoDescription -> mempty
+  StandardDescription s -> s
+  RepeatDescription s -> s
