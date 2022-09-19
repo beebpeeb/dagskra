@@ -9,20 +9,17 @@ import Network.RemoteData (RemoteData(..))
 
 import TV.UI.Common (State, css)
 
-render :: ∀ action m. State -> ComponentHTML action () m
+render :: ∀ a m. State -> ComponentHTML a () m
 render { date, response } =
   HH.header [ css "my-4" ]
     [ HH.div [ css "container" ]
         [ HH.div [ css "row" ]
             [ HH.h1 [ css "display-3" ]
-                [ HH.text "Dagskrá RÚV"
-                , HH.span [ css "fs-5 text-info" ]
-                    [ HH.text case response of
-                        Loading -> "Hleð..."
-                        Failure e -> "Eitthvað fór úrskeiðis: " <> e
-                        Success _ -> fromMaybe mempty date
-                        _ -> mempty
-                    ]
+                [ HH.text "Dagskrá RÚV" ]
+            , HH.p [ css "fs-5 text-info" ]
+                [ HH.text case response of
+                    Failure e -> "Eitthvað fór úrskeiðis: " <> e
+                    _ -> fromMaybe mempty date
                 ]
             ]
         ]

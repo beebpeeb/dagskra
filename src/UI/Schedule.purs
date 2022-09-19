@@ -2,7 +2,7 @@ module TV.UI.Schedule where
 
 import Prelude
 
-import Data.Array.NonEmpty (sort, toArray)
+import Data.Array (fromFoldable)
 import Halogen (ComponentHTML)
 import Halogen.HTML as HH
 
@@ -10,12 +10,12 @@ import TV.Data.Listing (Status(..))
 import TV.Data.Listing as Listing
 import TV.UI.Common (State, css, empty, whenElem, withSpinner)
 
-render :: ∀ action m. State -> ComponentHTML action () m
+render :: ∀ a m. State -> ComponentHTML a () m
 render { response } =
   HH.section [ css "container" ]
     [ withSpinner response schedule ]
   where
-  schedule = HH.html_ <<< map listing <<< toArray <<< sort
+  schedule = HH.html_ <<< map listing <<< fromFoldable
 
   listing l =
     HH.div [ css "row mb-3" ]
