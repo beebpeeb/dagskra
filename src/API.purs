@@ -10,9 +10,9 @@ import Data.Either (Either(..), either)
 import Effect.Aff (Aff)
 import Network.RemoteData (RemoteData)
 
-import TV.Data.Listing (Listings, decodeListings)
+import TV.Data.Listing (Schedule, decodeSchedule)
 
-type APIResponse = RemoteData String Listings
+type APIResponse = RemoteData String Schedule
 
 fetchListings :: Aff APIResponse
 fetchListings = do
@@ -21,4 +21,4 @@ fetchListings = do
     Left error ->
       throwError (printError error)
     Right { body } ->
-      either (throwError <<< printJsonDecodeError) pure (decodeListings body)
+      either (throwError <<< printJsonDecodeError) pure (decodeSchedule body)

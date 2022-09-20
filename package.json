@@ -12,6 +12,7 @@
   "devDependencies": {
     "parcel": "^2.7.0",
     "purescript": "^0.15.4",
+    "purs-tidy": "^0.9.2",
     "spago": "^0.20.9"
   }
 }

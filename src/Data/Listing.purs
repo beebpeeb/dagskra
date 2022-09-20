@@ -1,9 +1,9 @@
 module TV.Data.Listing
   ( Listing
-  , Listings
+  , Schedule
   , Status(..)
   , dateString
-  , decodeListings
+  , decodeSchedule
   , descriptionString
   , hasDescription
   , isLive
@@ -18,9 +18,9 @@ module TV.Data.Listing
 import Prelude
 
 import Data.Argonaut (class DecodeJson, Json, JsonDecodeError, (.:), decodeJson)
-import Data.Array.NonEmpty (NonEmptyArray, head, sort)
 import Data.Bifunctor (rmap)
 import Data.Either (Either)
+import Data.List.NonEmpty (NonEmptyList, head, sort)
 import Data.String.NonEmpty (NonEmptyString)
 import Data.String.NonEmpty as NES
 import Data.Traversable (traverse)
@@ -62,13 +62,13 @@ instance ordListing :: Ord Listing where
 instance showListing :: Show Listing where
   show (Listing { title }) = "(Listing " <> show title <> ")"
 
-type Listings = NonEmptyArray Listing
+type Schedule = NonEmptyList Listing
 
 dateString :: Listing -> String
 dateString (Listing { startTime }) = StartTime.toDateString startTime
 
-decodeListings :: Json -> Either JsonDecodeError Listings
-decodeListings = decodeJson >=> (_ .: "results") >=> traverse decodeJson >>> rmap sort
+decodeSchedule :: Json -> Either JsonDecodeError Schedule
+decodeSchedule = decodeJson >=> (_ .: "results") >=> traverse decodeJson >>> rmap sort
 
 -- | Returns the description of a `Listing` as a plain `String`.
 descriptionString :: Listing -> String
@@ -87,7 +87,7 @@ isRepeat :: Listing -> Boolean
 isRepeat (Listing { description }) = Description.isRepeat description
 
 -- | Returns the date of the given `Listings`
-scheduleDate :: Listings -> String
+scheduleDate :: Schedule -> String
 scheduleDate = dateString <<< head
 
 -- | Returns the start time of a `Listing` as a `String`.
