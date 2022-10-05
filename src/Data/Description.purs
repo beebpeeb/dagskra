@@ -57,7 +57,10 @@ isRepeat = case _ of
   _ -> false
 
 removeSuffix :: String -> Maybe String
-removeSuffix = stripSuffix (Pattern " e.") >=> trim >>> pure
+removeSuffix = stripSuffix suffix >=> trim >>> pure
+
+suffix :: Pattern
+suffix = Pattern " e."
 
 -- | Converts a `Description` into a plain `String`.
 toString :: Description -> String

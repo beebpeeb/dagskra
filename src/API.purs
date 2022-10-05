@@ -12,13 +12,13 @@ import Network.RemoteData (RemoteData)
 
 import TV.Data.Listing (Schedule, decodeSchedule)
 
-type APIResponse = RemoteData String Schedule
+type APIError = String
+
+type APIResponse = RemoteData APIError Schedule
 
 fetchListings :: Aff APIResponse
 fetchListings = do
   response <- get json "https://apis.is/tv/ruv"
-  pure case response of
-    Left error ->
-      throwError (printError error)
-    Right { body } ->
-      either (throwError <<< printJsonDecodeError) pure (decodeSchedule body)
+  pure $ case response of
+    Left error -> throwError $ printError error
+    Right { body } -> either (throwError <<< printJsonDecodeError) pure $ decodeSchedule body
