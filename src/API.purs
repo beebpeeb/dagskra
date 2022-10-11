@@ -6,20 +6,19 @@ import Affjax.ResponseFormat (json)
 import Affjax.Web (get, printError)
 import Control.Monad.Error.Class (throwError)
 import Data.Argonaut (printJsonDecodeError)
-import Data.Bifunctor (lmap)
-import Data.Either (Either(..))
+import Data.Either (Either(..), either)
 import Effect.Aff (Aff)
-import Network.RemoteData (RemoteData, fromEither)
+import Network.RemoteData (RemoteData)
 
 import TV.Data.Listing (Schedule, decodeSchedule)
 
-type APIError = String
+type APIResponse = RemoteData String Schedule
 
-type APIResponse = RemoteData APIError Schedule
-
-fetchListings :: Aff APIResponse
-fetchListings = do
+fetchSchedule :: Aff APIResponse
+fetchSchedule = do
   response <- get json "https://apis.is/tv/ruv"
-  pure $ fromEither case response of
-    Left error -> throwError (printError error)
-    Right { body } -> lmap printJsonDecodeError (decodeSchedule body)
+  pure case response of
+    Left error ->
+      throwError (printError error)
+    Right { body } ->
+      either (throwError <<< printJsonDecodeError) pure (decodeSchedule body)

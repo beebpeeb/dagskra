@@ -5,8 +5,8 @@ import Prelude
 import Data.Maybe (Maybe)
 import Data.Newtype (wrap)
 import Halogen.HTML (HTML, IProp)
-import Halogen.HTML as HH
-import Halogen.HTML.Properties as HP
+import Halogen.HTML as H
+import Halogen.HTML.Properties (class_)
 import Network.RemoteData (RemoteData(..))
 import Network.RemoteData as RD
 
@@ -23,11 +23,11 @@ type State =
 
 -- | Constructs a Halogen `IProp` for the given CSS class(es).
 css :: ∀ r i. String -> IProp (class :: String | r) i
-css = HP.class_ <<< wrap
+css = class_ <<< wrap
 
 -- | Constructs an empty `HTML` element.
 empty :: ∀ w i. HTML w i
-empty = HH.text mempty
+empty = H.text mempty
 
 -- | Constructs `HTML` when the given condition is `true`.
 whenElem :: ∀ w i. Boolean -> (Unit -> HTML w i) -> HTML w i
@@ -43,5 +43,5 @@ whenSuccess a f = RD.maybe empty f a
 withSpinner :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
 withSpinner remoteData f = case remoteData of
   Success a -> f a
-  Loading -> HH.div [ css "spinner-border text-muted" ] []
+  Loading -> H.div [ css "spinner-border text-muted" ] []
   _ -> empty

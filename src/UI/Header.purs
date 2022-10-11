@@ -4,20 +4,20 @@ import Prelude
 
 import Data.Maybe (fromMaybe)
 import Halogen (ComponentHTML)
-import Halogen.HTML as HH
+import Halogen.HTML as H
 import Network.RemoteData (RemoteData(..))
 
 import TV.UI.Common (State, css)
 
 render :: ∀ a m. State -> ComponentHTML a () m
 render { date, response } =
-  HH.header [ css "my-4" ]
-    [ HH.div [ css "container" ]
-        [ HH.div [ css "row" ]
-            [ HH.h1 [ css "display-3" ]
-                [ HH.text "Dagskrá RÚV" ]
-            , HH.p [ css "fs-5 text-info" ]
-                [ HH.text case response of
+  H.header [ css "my-4" ]
+    [ H.div [ css "container" ]
+        [ H.div [ css "row" ]
+            [ H.h1 [ css "display-3" ]
+                [ H.text "Dagskrá RÚV" ]
+            , H.p [ css "fs-5 text-info" ]
+                [ H.text case response of
                     Failure e -> "Eitthvað fór úrskeiðis: " <> e
                     _ -> fromMaybe mempty date
                 ]
