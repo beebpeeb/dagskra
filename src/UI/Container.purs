@@ -2,10 +2,9 @@ module TV.UI.Container where
 
 import Prelude
 
-import Control.Monad.State.Class (modify_)
 import Data.Maybe (Maybe(..))
 import Effect.Aff.Class (class MonadAff, liftAff)
-import Halogen (Component, defaultEval, mkComponent, mkEval)
+import Halogen (Component, defaultEval, mkComponent, mkEval, modify_)
 import Halogen.HTML as H
 import Network.RemoteData (RemoteData(..), toMaybe)
 
@@ -28,11 +27,10 @@ component =
               }
     }
   where
-  handleAction = case _ of
-    FetchSchedule -> do
-      response <- liftAff fetchSchedule
-      let date = Listing.scheduleDate <$> toMaybe response
-      modify_ _ { date = date, response = response }
+  handleAction FetchSchedule = do
+    response <- liftAff fetchSchedule
+    let date = Listing.scheduleDate <$> toMaybe response
+    modify_ _ { date = date, response = response }
 
   initialState _ = { date: Nothing, response: Loading }
 
