@@ -21,7 +21,6 @@
   , "spec"
   , "spec-discovery"
   , "strings"
-  , "transformers"
   ]
 , packages = ./packages.dhall
 }
