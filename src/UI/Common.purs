@@ -3,10 +3,10 @@ module TV.UI.Common where
 import Prelude
 
 import Data.Maybe (Maybe)
-import Data.Newtype (wrap)
-import Halogen.HTML (HTML, IProp)
+import Halogen.HTML (HTML)
 import Halogen.HTML as H
-import Halogen.HTML.Properties (class_)
+import Halogen.HTML.Properties as P
+import Halogen.Themes.Bootstrap5 as B
 import Network.RemoteData (RemoteData(..))
 import Network.RemoteData as RD
 
@@ -20,10 +20,6 @@ type State =
   { date :: Maybe String
   , response :: APIResponse
   }
-
--- | Constructs a Halogen `IProp` for the given CSS class(es).
-css :: ∀ r i. String -> IProp (class :: String | r) i
-css = class_ <<< wrap
 
 -- | Constructs an empty `HTML` element.
 empty :: ∀ w i. HTML w i
@@ -43,5 +39,5 @@ whenSuccess a f = RD.maybe empty f a
 withSpinner :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
 withSpinner remoteData f = case remoteData of
   Success a -> f a
-  Loading -> H.div [ css "spinner-border text-muted" ] []
+  Loading -> H.div [ P.classes [ B.spinnerBorder, B.textMuted ] ] []
   _ -> empty

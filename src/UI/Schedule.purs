@@ -5,29 +5,31 @@ import Prelude
 import Data.Array (fromFoldable)
 import Halogen (ComponentHTML)
 import Halogen.HTML as H
+import Halogen.HTML.Properties as P
+import Halogen.Themes.Bootstrap5 as B
 
 import TV.Data.Listing (Status(..))
 import TV.Data.Listing as Listing
-import TV.UI.Common (State, css, empty, whenElem, withSpinner)
+import TV.UI.Common (State, empty, whenElem, withSpinner)
 
 render :: ∀ a m. State -> ComponentHTML a () m
 render { response } =
-  H.section [ css "container" ]
+  H.section [ P.class_ B.container ]
     [ withSpinner response schedule ]
   where
   schedule = H.html_ <<< map listing <<< fromFoldable
 
   listing l =
-    H.div [ css "row mb-3" ]
-      [ H.div [ css "col-2" ]
-          [ H.h4 [ css "text-info" ]
+    H.div [ P.classes [ B.row, B.mb3 ] ]
+      [ H.div [ P.class_ B.col2 ]
+          [ H.h4 [ P.class_ B.textInfo ]
               [ H.text $ Listing.startTimeString l ]
           ]
-      , H.div [ css "col-10" ]
-          [ H.h4 [ css "text-primary text-uppercase" ]
+      , H.div [ P.class_ B.col10 ]
+          [ H.h4 [ P.classes [ B.textPrimary, B.textUppercase ] ]
               [ H.text $ Listing.titleString l ]
           , whenElem (Listing.hasDescription l) \_ ->
-              H.p [ css "text-muted" ]
+              H.p [ P.class_ B.textMuted ]
                 [ H.text $ Listing.descriptionString l ]
           , statusBadge $ Listing.status l
           ]
@@ -35,9 +37,9 @@ render { response } =
 
   statusBadge = case _ of
     Live ->
-      H.p [ css "badge bg-danger" ]
+      H.p [ P.classes [ B.badge, B.bgDanger ] ]
         [ H.text "bein útsending" ]
     Repeat ->
-      H.p [ css "badge bg-success" ]
+      H.p [ P.classes [ B.badge, B.bgSuccess ] ]
         [ H.text "endurtekinn" ]
     _ -> empty

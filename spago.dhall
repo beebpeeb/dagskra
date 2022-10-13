@@ -13,6 +13,7 @@
   , "foldable-traversable"
   , "formatters"
   , "halogen"
+  , "halogen-bootstrap5"
   , "lists"
   , "maybe"
   , "newtype"
