@@ -16,7 +16,6 @@
   , "halogen-bootstrap5"
   , "lists"
   , "maybe"
-  , "newtype"
   , "prelude"
   , "remotedata"
   , "spec"
