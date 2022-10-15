@@ -1,4 +1,4 @@
-module Test.Main (main) where
+module Test.Main where
 
 import Prelude
 
@@ -10,7 +10,6 @@ import Test.Spec.Runner (runSpec)
 
 -- | Discover and execute all `Spec` tests.
 main :: Effect Unit
-main =
-  launchAff_ do
-    modules <- discover """Test\..*\.Spec"""
-    runSpec [ consoleReporter ] modules
+main = launchAff_ do
+  modules <- discover """Test\..*\.Spec"""
+  runSpec [ consoleReporter ] modules

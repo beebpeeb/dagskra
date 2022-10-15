@@ -1,4 +1,4 @@
-module Test.Data.Description.Spec (spec) where
+module Test.Data.Description.Spec where
 
 import Prelude
 

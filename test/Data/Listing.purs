@@ -1,4 +1,4 @@
-module Test.Data.Listing.Spec (spec) where
+module Test.Data.Listing.Spec where
 
 import Prelude
 
@@ -16,6 +16,4 @@ spec :: Spec Unit
 spec =
   describe "Schedule" do
     it "can be decoded successfully"
-      $ isRight decoded `shouldEqual` true
-  where
-  decoded = decodeSchedule response
+      $ isRight (decodeSchedule response) `shouldEqual` true
