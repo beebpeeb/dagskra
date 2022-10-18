@@ -15,7 +15,7 @@ type APIResponse = RemoteData String Schedule
 
 fetchSchedule :: Aff APIResponse
 fetchSchedule = do
-  res <- get json "https://apis.is/tv/ruv"
-  pure $ fromEither $ decode =<< lmap printError res
+  response <- get json "https://apis.is/tv/ruv"
+  pure $ fromEither $ decode response
   where
-  decode { body } = lmap printJsonDecodeError $ decodeSchedule body
+  decode = lmap printError >=> _.body >>> decodeSchedule >>> lmap printJsonDecodeError
