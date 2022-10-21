@@ -38,7 +38,7 @@ instance showDescription :: Show Description where
 fromString :: String -> Description
 fromString = trim >>> case _ of
   "" -> NoDescription
-  s -> maybe (StandardDescription s) RepeatDescription $ removeSuffix s
+  s -> maybe (StandardDescription s) RepeatDescription (removeSuffix s)
 
 -- | Returns `true` if the given `Description` has text.
 hasText :: Description -> Boolean
