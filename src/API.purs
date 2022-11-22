@@ -14,11 +14,13 @@ import TV.Data.Listing (Schedule, decodeSchedule)
 type APIResponse = RemoteData String Schedule
 
 fetchSchedule :: Aff APIResponse
-fetchSchedule = do
-  response <- get json url
-  pure $ fromEither $ decode response
+fetchSchedule = get json url >>= \res -> pure $ fromEither $ parse res
   where
-  decode = lmap printError >=> _.body >>> decodeSchedule >>> lmap printJsonDecodeError
+  parse =
+    lmap printError
+      >=> _.body
+        >>> decodeSchedule
+        >>> lmap printJsonDecodeError
 
 url :: URL
 url = "https://apis.is/tv/ruv"
