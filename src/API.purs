@@ -3,7 +3,7 @@ module TV.API where
 import Prelude
 
 import Affjax.ResponseFormat (json)
-import Affjax.Web (URL, get, printError)
+import Affjax.Web (get, printError)
 import Data.Argonaut (printJsonDecodeError)
 import Data.Bifunctor (lmap)
 import Effect.Aff (Aff)
@@ -22,5 +22,4 @@ fetchSchedule = get json url >>= \res -> pure $ fromEither $ parse res
         >>> decodeSchedule
         >>> lmap printJsonDecodeError
 
-url :: URL
-url = "https://apis.is/tv/ruv"
+  url = "https://apis.is/tv/ruv"
