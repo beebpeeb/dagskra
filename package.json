@@ -10,6 +10,9 @@
     "test": "spago test"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.8.0",
+    "bootstrap": "^5.2.3",
+    "bootswatch": "^5.2.2",
     "parcel": "^2.8.0",
     "purescript": "^0.15.6",
     "purs-tidy": "^0.9.2",
