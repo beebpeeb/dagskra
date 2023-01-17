@@ -10,6 +10,4 @@ import Test.Spec.Runner (runSpec)
 
 -- | Discover and execute all `Spec` tests.
 main :: Effect Unit
-main = launchAff_ do
-  modules <- discover """Test\..*\.Spec"""
-  runSpec [ consoleReporter ] modules
+main = launchAff_ $ runSpec [ consoleReporter ] =<< discover """Test\..*\.Spec"""

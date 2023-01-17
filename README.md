@@ -9,6 +9,7 @@ This app requires Node version 17 or higher.
 ## Install
 
 ```shell
+npm install -g purescript spago
 npm install
 ```
 
@@ -69,7 +70,7 @@ The modules in [UI](src/UI/) are where the [Halogen][] UI rendering functions
 live.
 
 You can see how the application is mounted into the DOM in the
-[`Main.purs`](src/Main.purs) module.
+[`Main`](src/Main.purs) module.
 
 ---
 
@@ -79,7 +80,7 @@ This application makes use of the [Halogen][] UI library, entirely written in
 PureScript. Halogen is conceptually similar to React.
 
 See an example of an AJAX request (and subsequent JSON decoding) in the
-[`API.purs`](src/API.purs) module.
+[`API`](src/API.purs) module.
 
 JSON decoding is provided by [Argonaut][].
 
@@ -89,7 +90,7 @@ JSON decoding is provided by [Argonaut][].
 
 The test modules in the `test` directory demonstrate some approaches to
 testing. This application is small enough that we can use [Spec][] tests, but
-[QuickCheck] can often be valuable for larger projects.
+[QuickCheck][] can often be valuable for larger projects.
 
 
 [argonaut]: https://github.com/purescript-contrib/purescript-argonaut
