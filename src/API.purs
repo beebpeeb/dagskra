@@ -15,9 +15,9 @@ import TV.Data.Listing (Listings, decodeListings)
 type APIResponse = RemoteData String Listings
 
 fetchSchedule :: Aff APIResponse
-fetchSchedule = get json url >>= decode >>> fromEither >>> pure
+fetchSchedule = get json url >>= decodeResponse >>> fromEither >>> pure
   where
-  decode =
+  decodeResponse =
     lmap printError
       >=> _.body
         >>> decodeListings
