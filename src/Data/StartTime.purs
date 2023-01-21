@@ -24,10 +24,7 @@ derive instance eqStartTime :: Eq StartTime
 derive instance ordStartTime :: Ord StartTime
 
 instance decodeJsonStartTime :: DecodeJson StartTime where
-  decodeJson =
-    decodeJson
-      >=> fromString
-        >>> lmap (Json.fromString >>> UnexpectedValue)
+  decodeJson = decodeJson >=> fromString >>> lmap unexpected
 
 instance showStartTime :: Show StartTime where
   show (StartTime dt) = "(StartTime " <> show dt <> ")"
@@ -73,3 +70,6 @@ timeFormatter = Hours24 : Placeholder ":" : MinutesTwoDigits : Nil
 
 timestampFormatter :: Formatter
 timestampFormatter = UnixTimestamp : Nil
+
+unexpected :: String -> JsonDecodeError
+unexpected = UnexpectedValue <<< Json.fromString
