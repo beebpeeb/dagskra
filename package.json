@@ -4,7 +4,7 @@
   "source": "assets/index.html",
   "scripts": {
     "build": "spago build && vite build",
-    "release": "spago build && vite preview",
+    "preview": "spago build && vite preview",
     "repl": "spago repl",
     "start": "spago build && vite --open",
     "test": "spago test"
