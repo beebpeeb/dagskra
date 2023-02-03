@@ -1,7 +1,6 @@
 {
   "name": "dagskra",
   "private": true,
-  "source": "assets/index.html",
   "scripts": {
     "build": "spago build && vite build",
     "preview": "spago build && vite preview",
