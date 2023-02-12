@@ -9,7 +9,6 @@ This app requires Node version 17 or higher.
 ## Install
 
 ```shell
-npm install -g purescript spago
 npm install
 ```
 

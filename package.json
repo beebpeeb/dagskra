@@ -3,9 +3,10 @@
   "private": true,
   "scripts": {
     "build": "spago build && vite build",
+    "compile": "spago build",
     "preview": "spago build && vite preview",
     "repl": "spago repl",
-    "start": "spago build && vite --open",
+    "start": "spago build && vite",
     "test": "spago test"
   },
   "devDependencies": {

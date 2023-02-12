@@ -18,8 +18,8 @@ module TV.Data.Listing
 import Prelude
 
 import Data.Argonaut (class DecodeJson, Json, JsonDecodeError, (.:), decodeJson)
+import Data.Array.NonEmpty (NonEmptyArray, head)
 import Data.Either (Either)
-import Data.List.NonEmpty (NonEmptyList, head)
 import Data.String.NonEmpty (NonEmptyString)
 import Data.String.NonEmpty as NES
 import Data.Traversable (traverse)
@@ -61,7 +61,7 @@ instance ordListing :: Ord Listing where
 instance showListing :: Show Listing where
   show (Listing { title }) = "(Listing " <> show title <> ")"
 
-type Listings = NonEmptyList Listing
+type Listings = NonEmptyArray Listing
 
 dateString :: Listing -> String
 dateString (Listing { startTime }) = StartTime.toDateString startTime

@@ -17,8 +17,6 @@ render { response } =
   H.section [ P.class_ B.container ]
     [ withSpinner response schedule ]
   where
-  schedule = H.html_ <<< map listing <<< fromFoldable
-
   listing l =
     H.div [ P.classes [ B.row, B.mb3 ] ]
       [ H.div [ P.class_ B.col2 ]
@@ -34,6 +32,8 @@ render { response } =
           , statusBadge $ Listing.status l
           ]
       ]
+
+  schedule = H.html_ <<< map listing <<< fromFoldable
 
   statusBadge = case _ of
     Live ->
