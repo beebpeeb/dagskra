@@ -21,16 +21,16 @@ type State =
   }
 
 -- | Constructs an empty `HTML` element.
-empty :: ∀ w i. HTML w i
+empty :: forall w i. HTML w i
 empty = H.text mempty
 
 -- | Constructs `HTML` when the given condition is `true`.
-whenElem :: ∀ w i. Boolean -> (Unit -> HTML w i) -> HTML w i
+whenElem :: forall w i. Boolean -> (Unit -> HTML w i) -> HTML w i
 whenElem cond f = if cond then f unit else empty
 
 -- | Constructs `HTML` when the given `RemoteData` was constructed with `Success`
 -- | otherwise renders a spinner.
-withSpinner :: ∀ e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
+withSpinner :: forall e a w i. RemoteData e a -> (a -> HTML w i) -> HTML w i
 withSpinner remoteData f = case remoteData of
   Success a -> f a
   Loading -> H.div [ P.classes [ B.spinnerBorder, B.textMuted ] ] []

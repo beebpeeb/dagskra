@@ -11,7 +11,7 @@ import Network.RemoteData (RemoteData(..))
 
 import TV.UI.Common (State)
 
-render :: ∀ a m. State -> ComponentHTML a () m
+render :: forall a m. State -> ComponentHTML a () m
 render { date, response } =
   H.header [ P.class_ B.my4 ]
     [ H.div [ P.class_ B.container ]

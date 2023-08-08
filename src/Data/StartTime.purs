@@ -41,6 +41,9 @@ toTimeString (StartTime dt) = format timeFormatter dt
 toTimestamp :: StartTime -> String
 toTimestamp (StartTime dt) = format timestampFormatter dt
 
+unexpected :: String -> JsonDecodeError
+unexpected = UnexpectedValue <<< Json.fromString
+
 dateFormatter :: Formatter
 dateFormatter =
   DayOfMonthTwoDigits
@@ -70,6 +73,3 @@ timeFormatter = Hours24 : Placeholder ":" : MinutesTwoDigits : Nil
 
 timestampFormatter :: Formatter
 timestampFormatter = UnixTimestamp : Nil
-
-unexpected :: String -> JsonDecodeError
-unexpected = UnexpectedValue <<< Json.fromString

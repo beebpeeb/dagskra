@@ -12,7 +12,7 @@ import TV.Data.Listing (Status(..))
 import TV.Data.Listing as Listing
 import TV.UI.Common (State, empty, whenElem, withSpinner)
 
-render :: ∀ a m. State -> ComponentHTML a () m
+render :: forall a m. State -> ComponentHTML a () m
 render { response } =
   H.section [ P.class_ B.container ]
     [ withSpinner response schedule ]

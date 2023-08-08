@@ -2,9 +2,10 @@ module TV.UI.Container where
 
 import Prelude
 
+import Control.Monad.State.Class (modify_)
 import Data.Maybe (Maybe(..))
 import Effect.Aff.Class (class MonadAff, liftAff)
-import Halogen (Component, defaultEval, mkComponent, mkEval, modify_)
+import Halogen (Component, defaultEval, mkComponent, mkEval)
 import Halogen.HTML as H
 import Network.RemoteData (RemoteData(..), toMaybe)
 
@@ -14,7 +15,7 @@ import TV.UI.Common (Action(..))
 import TV.UI.Header as Header
 import TV.UI.Schedule as Schedule
 
-component :: ∀ q i o m. MonadAff m => Component q i o m
+component :: forall q i o m. MonadAff m => Component q i o m
 component =
   mkComponent
     { initialState
