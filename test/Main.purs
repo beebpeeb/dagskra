@@ -4,10 +4,16 @@ import Prelude
 
 import Effect (Effect)
 import Effect.Aff (launchAff_)
-import Test.Spec.Discovery (discover)
 import Test.Spec.Reporter.Console (consoleReporter)
 import Test.Spec.Runner (runSpec)
 
--- | Discover and execute all `Spec` tests.
+import Test.Data.Description.Spec as Description
+import Test.Data.StartTime.Spec as StartTime
+
+-- | Execute all `Spec` tests.
 main :: Effect Unit
-main = launchAff_ $ runSpec [ consoleReporter ] =<< discover """Test\..*\.Spec"""
+main = launchAff_ $ runSpec [consoleReporter] specs
+  where
+    specs = do
+      Description.spec
+      StartTime.spec

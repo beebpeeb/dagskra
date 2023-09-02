@@ -19,7 +19,6 @@
   , "prelude"
   , "remotedata"
   , "spec"
-  , "spec-discovery"
   , "strings"
   , "transformers"
   ]
