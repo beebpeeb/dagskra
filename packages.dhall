@@ -105,7 +105,7 @@ in  upstream
 -------------------------------
 -}
 let upstream =
-      https://github.com/purescript/package-sets/releases/download/psc-0.15.10-20230902/packages.dhall
-        sha256:49267a5d99aab0f5b098eab86d1641ccb9611d1e027a20fe6691a98915582ded
+      https://github.com/purescript/package-sets/releases/download/psc-0.15.10-20230906/packages.dhall
+        sha256:7c5742a4c04391aa043be617c04ffcd478f2fc6cbc00c41ef9558ef4bcc4c355
 
 in  upstream
