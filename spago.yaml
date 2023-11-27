@@ -9,10 +9,10 @@ package:
     - halogen-bootstrap5
     - prelude
     - remotedata
-    - spec
-  name: dagskra-halogen
+  name: dagskra
   test:
-    dependencies: []
+    dependencies:
+      - spec
     main: Test.Main
 workspace:
   extra_packages: {}

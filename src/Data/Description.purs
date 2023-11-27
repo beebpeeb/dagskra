@@ -14,7 +14,7 @@ import Data.Maybe (Maybe, maybe)
 import Data.String (Pattern(..), stripSuffix, trim)
 
 -- | Union type representing the possible description of a listing
--- | which may additionally identify a repeat transmission.
+-- | which may, additionally, identify a repeat transmission.
 -- | Construct a `Description` with `fromString`.
 data Description
   = NoDescription
@@ -34,7 +34,7 @@ instance showDescription :: Show Description where
     StandardDescription s -> "(StandardDescription " <> show s <> ")"
     RepeatDescription s -> "(RepeatDescription " <> show s <> ")"
 
--- | Constructs a `Description` from the given `String`.
+-- | Constructs a `Description` from the given, plain string.
 fromString :: String -> Description
 fromString = trim >>> case _ of
   "" -> NoDescription
@@ -62,7 +62,7 @@ removeSuffix = stripSuffix suffix >=> trim >>> pure
 suffix :: Pattern
 suffix = Pattern " e."
 
--- | Converts a `Description` into a plain `String`.
+-- | Converts a `Description` into a plain string.
 toString :: Description -> String
 toString = case _ of
   NoDescription -> mempty
