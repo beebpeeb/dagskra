@@ -41,5 +41,5 @@ render { response } =
         [ H.text "bein útsending" ]
     Repeat ->
       H.p [ P.classes [ B.badge, B.bgSuccess ] ]
-        [ H.text "endursýning" ]
+        [ H.text "endurtekinn" ]
     _ -> empty

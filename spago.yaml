@@ -2,8 +2,6 @@ package:
   dependencies:
     - affjax-web
     - argonaut
-    - console
-    - effect
     - formatters
     - halogen
     - halogen-bootstrap5
