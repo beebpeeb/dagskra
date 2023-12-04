@@ -16,6 +16,6 @@
     "purescript-language-server": "^0.17.3",
     "purs-tidy": "^0.10.0",
     "spago": "^0.93.18",
-    "vite": "^5.0.2"
+    "vite": "^5.0.5"
   }
 }
