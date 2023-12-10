@@ -10,9 +10,10 @@ import Halogen.HTML as H
 import Network.RemoteData (RemoteData(..))
 
 import TV.API (fetchSchedule)
-import TV.UI.Common (Action(..))
 import TV.UI.Header as Header
 import TV.UI.Schedule as Schedule
+
+data Action = FetchSchedule
 
 component :: forall q i o m. MonadAff m => Component q i o m
 component =

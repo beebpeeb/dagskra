@@ -10,9 +10,6 @@ import Network.RemoteData (RemoteData(..))
 
 import TV.API (APIResponse)
 
--- | Union type representing the possible actions the application component can perform.
-data Action = FetchSchedule
-
 -- | Sum type representing the application component's state record.
 type State = { response :: APIResponse }
 
