@@ -2,7 +2,6 @@ module TV.UI.Common where
 
 import Prelude
 
-import Data.Maybe (Maybe)
 import Halogen.HTML (HTML)
 import Halogen.HTML as H
 import Halogen.HTML.Properties as P
@@ -15,10 +14,7 @@ import TV.API (APIResponse)
 data Action = FetchSchedule
 
 -- | Sum type representing the application component's state record.
-type State =
-  { date :: Maybe String
-  , response :: APIResponse
-  }
+type State = { response :: APIResponse }
 
 -- | Constructs an empty `HTML` element.
 empty :: forall w i. HTML w i

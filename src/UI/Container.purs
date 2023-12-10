@@ -7,10 +7,9 @@ import Data.Maybe (Maybe(..))
 import Effect.Aff.Class (class MonadAff, liftAff)
 import Halogen (Component, defaultEval, mkComponent, mkEval)
 import Halogen.HTML as H
-import Network.RemoteData (RemoteData(..), toMaybe)
+import Network.RemoteData (RemoteData(..))
 
 import TV.API (fetchSchedule)
-import TV.Data.Listing as Listing
 import TV.UI.Common (Action(..))
 import TV.UI.Header as Header
 import TV.UI.Schedule as Schedule
@@ -30,10 +29,9 @@ component =
   where
   handleAction FetchSchedule = do
     response <- liftAff fetchSchedule
-    let date = Listing.scheduleDate <$> toMaybe response
-    modify_ _ { date = date, response = response }
+    modify_ _ { response = response }
 
-  initialState _ = { date: Nothing, response: Loading }
+  initialState _ = { response: Loading }
 
   initialize = Just FetchSchedule
 

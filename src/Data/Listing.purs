@@ -69,7 +69,7 @@ dateString (Listing { startTime }) = StartTime.toDateString startTime
 decodeListings :: Json -> Either JsonDecodeError Listings
 decodeListings = decodeJson >=> (_ .: "results") >=> traverse decodeJson
 
--- | Returns the description of a `Listing` as a plain `String`.
+-- | Returns the description of a `Listing` as a plain string.
 descriptionString :: Listing -> String
 descriptionString (Listing { description }) = Description.toString description
 
@@ -89,7 +89,7 @@ isRepeat (Listing { description }) = Description.isRepeat description
 scheduleDate :: Listings -> String
 scheduleDate = dateString <<< head
 
--- | Returns the start time of a `Listing` as a `String`.
+-- | Returns the start time of a `Listing` as a plain string.
 startTimeString :: Listing -> String
 startTimeString (Listing { startTime }) = StartTime.toTimeString startTime
 
@@ -104,6 +104,6 @@ status = flap [ isLive, isRepeat ] >>> case _ of
 timestamp :: Listing -> String
 timestamp (Listing { startTime }) = StartTime.toTimestamp startTime
 
--- | Returns the title of the given `Listing` as a plain `String`.
+-- | Returns the title of the given `Listing` as a plain string.
 titleString :: Listing -> String
 titleString (Listing { title }) = NES.toString title
