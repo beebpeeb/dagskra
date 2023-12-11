@@ -18,10 +18,11 @@ render { response } =
         [ H.div [ P.class_ B.row ]
             [ H.h1 [ P.class_ B.display3 ]
                 [ H.text "Dagskrá RÚV" ]
-            , H.p [ P.classes [ B.fs5, B.textInfo ] ]
+            , H.h5 [ P.classes [ B.fs5, B.textInfo ] ]
                 [ H.text case response of
-                    Failure e -> "Eitthvað fór úrskeiðis: " <> e
-                    _ -> maybe mempty scheduleDate response
+                    Failure msg -> "Eitthvað fór úrskeiðis: " <> msg
+                    Success _ -> maybe mempty scheduleDate response
+                    _ -> "..."
                 ]
             ]
         ]
