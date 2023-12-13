@@ -1,11 +1,5 @@
 # Dagskrá RÚV
 
-PureScript app to accompany the BBC Academy talk "Abandon Hope!".
-
-This app requires Node version 17 or higher.
-
----
-
 ## Install
 
 ```shell

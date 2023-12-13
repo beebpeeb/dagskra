@@ -28,9 +28,10 @@ component =
               }
     }
   where
-  handleAction FetchSchedule = do
-    response <- liftAff fetchSchedule
-    modify_ _ { response = response }
+  handleAction action = case action of
+    FetchSchedule -> do
+      response <- liftAff fetchSchedule
+      modify_ _ { response = response }
 
   initialState _ = { response: Loading }
 
