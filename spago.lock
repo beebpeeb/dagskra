@@ -109,8 +109,8 @@ workspace:
         - web-xhr
   package_set:
     address:
-      registry: 47.10.0
-    compiler: ">=0.15.13 <0.16.0"
+      registry: 47.11.0
+    compiler: ">=0.15.14 <0.16.0"
     content:
       abc-parser: 2.0.1
       ace: 9.1.0
