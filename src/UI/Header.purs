@@ -18,7 +18,7 @@ render { response } =
         [ H.div [ P.class_ B.row ]
             [ H.h1 [ P.class_ B.display3 ]
                 [ H.text "Dagskrá RÚV" ]
-            , H.h5 [ P.classes [ B.fs5, B.textInfo ] ]
+            , H.h4 [ P.classes [ B.fs5, B.textInfo ] ]
                 [ H.text case response of
                     Failure msg -> "Eitthvað fór úrskeiðis: " <> msg
                     Success _ -> maybe mempty scheduleDate response

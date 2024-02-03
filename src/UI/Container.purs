@@ -32,7 +32,7 @@ component =
       response <- liftAff fetchSchedule
       modify_ _ { response = response }
 
-  initialState _ = { response: Loading }
+  initialState = const { response: Loading }
 
   initialize = Just FetchSchedule
 
