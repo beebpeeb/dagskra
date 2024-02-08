@@ -2,9 +2,10 @@ module TV.UI.Container where
 
 import Prelude
 
+import Control.Monad.State.Class (modify_)
 import Data.Maybe (Maybe(..))
 import Effect.Aff.Class (class MonadAff, liftAff)
-import Halogen (Component, defaultEval, mkComponent, mkEval, modify_)
+import Halogen (Component, defaultEval, mkComponent, mkEval)
 import Halogen.HTML (html_)
 import Network.RemoteData (RemoteData(..))
 
@@ -27,10 +28,9 @@ component =
               }
     }
   where
-  handleAction action = case action of
-    FetchSchedule -> do
-      response <- liftAff fetchSchedule
-      modify_ _ { response = response }
+  handleAction FetchSchedule = do
+    response <- liftAff fetchSchedule
+    modify_ _ { response = response }
 
   initialState = const { response: Loading }
 
